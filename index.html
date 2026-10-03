@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HUBER FORMWORK — Kontakt · Ravensburg</title>
+  <meta name="description" content="HUBER FORMWORK, Schalungsbau aus Ravensburg (Oberschwaben). Kletterschalung, Deckenschalung, Sichtbeton. Sprechen Sie mit uns über Ihr Projekt." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    :root {
+      /* HUBER FORMWORK brand tokens — sister brand to HUBER BAU; signal-red replaces their signal-accent */
+      --hf-paper:        #FAFAF7;
+      --hf-paper-warm:   #F5F4EF;
+      --hf-paper-soft:   #F3F4E9;
+      --hf-mineral:      #EDEFDD;
+      --hf-red:          #AD0C1B;
+      --hf-red-soft:     #EBCFD2;
+      --hf-ink:          #1A1A18;
+      --hf-ink-2:        #2A2A27;
+      --hf-mid:          #5C5B53;
+      --hf-mid-2:        #6F6E65;
+      --hf-mid-3:        #8A897F;
+      --hf-line:         #DEDDD5;
+      --hf-line-soft:    #D3D4BE;
+      --hf-concrete:     #C9C7BB;
+
+      --type-display: clamp(2.5rem, 4.6vw, 4.875rem);
+      --type-h2:      clamp(2.625rem, 4.6vw, 5rem);
+      --type-h3:      clamp(1.5rem, 2.2vw, 2.125rem);
+      --type-body:    1.0625rem;
+      --type-mono:    0.6875rem;
+      --letter-mono:  0.15em;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    body {
+      font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: var(--type-body);
+      line-height: 1.55;
+      color: var(--hf-ink);
+      background: linear-gradient(180deg, var(--hf-paper) 0%, var(--hf-paper-warm) 100%);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--hf-red); color: var(--hf-paper); }
+    a { color: inherit; text-decoration: none; }
+
+    /* Radial red wash behind the SVG */
+    .bg-wash {
+      position: fixed;
+      top: -18%;
+      left: -8%;
+      width: 80vw;
+      height: 80vw;
+      max-width: 1200px;
+      max-height: 1200px;
+      background: radial-gradient(circle at center, rgba(173, 12, 27, 0.10) 0%, rgba(173, 12, 27, 0) 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 24px 0;
+      gap: 4px;
+      z-index: 1;
+    }
+    .hero__brand {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.85rem;
+      line-height: 1;
+      letter-spacing: 0.005em;
+      color: var(--hf-ink);
+      padding: 8px 0 6px;
+    }
+    .hero__brand .wordmark__a { font-weight: 900; }
+    .hero__brand .wordmark__bar {
+      display: inline-block;
+      width: 3px;
+      height: 1.05em;
+      background: var(--hf-red);
+      margin: 0 0.42em;
+      flex-shrink: 0;
+    }
+    .hero__brand .wordmark__b { font-weight: 400; }
+
+    /* === HERO STAGE — slab-pour sequence === */
+    .hero__stage {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 0 0;
+      min-height: 0;
+    }
+    .hero__stage-inner {
+      flex: 0 1 auto;
+      width: 100%;
+      max-width: 1180px;
+      transform-origin: 50% 50%;
+      transform: translateX(-2rem);
+    }
+    .hf-hero__svg {
+      width: 100%;
+      max-width: 1180px;
+      height: auto;
+      max-height: 56vh;
+      overflow: visible;
+      display: block;
+      flex-shrink: 1;
+    }
+
+    /* Construction-paper grid + ground textures */
+    /* Kühlturm (cooling tower) — hyperboloid 10-takt pour sequence */
+    .hf-hero__svg { background: #0f2a4a; }
+    .hf-hero__svg .hf-grid { fill: none; }
+    .hf-hero__svg .ln {
+      fill: none; stroke: #e8f1ff; stroke-width: 2;
+      stroke-dasharray: 1; stroke-dashoffset: 1;
+      animation: hf-draw 0.8s ease 0.1s forwards;
+    }
+    .hf-hero__svg .soil {
+      fill: url(#soil);
+      opacity: 0;
+      animation: hf-in 0.8s ease 0.2s forwards;
+    }
+    .hf-hero__svg .col {
+      fill: none; stroke: #e8f1ff; stroke-width: 1.5;
+      stroke-dasharray: 1; stroke-dashoffset: 1;
+      animation: hf-draw 0.6s ease calc(0.4s + var(--i) * 0.04s) forwards;
+    }
+
+    /* Pour: each lift of the climbing formwork */
+    .hf-hero__svg .lw {
+      fill: url(#cg);
+      stroke: #0f2a4a; stroke-width: 1;
+      transform-origin: bottom;
+      transform: scaleY(0);
+      animation:
+        pour 0.38s cubic-bezier(.3,.8,.4,1) var(--t) forwards,
+        cure 1s ease calc(var(--t) + 0.9s) forwards;
+    }
+    /* Climbing formwork: the panel + yoke that holds the wet concrete */
+    .hf-hero__svg .fw {
+      opacity: 0;
+      animation: fw var(--dur, 0.95s) linear var(--t) forwards;
+    }
+    .hf-hero__svg .fw polygon { fill: rgba(255,166,0,0.3); stroke: #ffa600; stroke-width: 1.8; }
+    .hf-hero__svg .fw path    { stroke: #ffa600; stroke-width: 2.2; fill: none; }
+
+    /* Rebar ties (vertical starter bars visible briefly) */
+    .hf-hero__svg .rb {
+      stroke: #e8f1ff; stroke-width: 1.5;
+      stroke-dasharray: 3 2;
+      opacity: 0;
+      animation: rbk 0.9s linear var(--t) forwards;
+    }
+
+    /* Crane: vertical mast (steps-animated up) + horizontal jib (translates up from below) */
+    .hf-hero__svg .mast {
+      fill: none; stroke: #e8f1ff; stroke-width: 2;
+      transform-origin: bottom; transform: scaleY(0.23);
+      animation: mast 4.2s steps(10, end) 1.9s forwards;
+    }
+    .hf-hero__svg .mastx { stroke: #e8f1ff; stroke-width: 1; opacity: 0.6; }
+    .hf-hero__svg .jib {
+      transform: translateY(370px);
+      animation: jib 4.2s steps(10, end) 1.9s forwards;
+    }
+    .hf-hero__svg .jib path { stroke: #e8f1ff; stroke-width: 2.5; fill: none; }
+    .hf-hero__svg .jib .cw { fill: #e8f1ff; }
+    .hf-hero__svg .jib .bk { fill: #ffa600; }
+    .hf-hero__svg .swing { transform-origin: 50% 0; animation: sw 1.3s ease-in-out infinite alternate; }
+    .hf-hero__svg .crane { opacity: 0; animation: hf-in 0.6s ease 1.5s forwards; }
+
+    /* Steam plume rings (4 wisps rising from top) */
+    .hf-hero__svg .pl {
+      fill: rgba(232,241,255,0.16);
+      stroke: rgba(232,241,255,0.5);
+      opacity: 0;
+      animation: pl 3.2s ease-out calc(7.3s + var(--k) * 0.55s) infinite;
+    }
+
+    /* Dimensions (H=150m vertical + Ø=76m horizontal) */
+    .hf-hero__svg .dims { opacity: 0; animation: hf-in 0.6s ease 7.6s forwards; }
+    .hf-hero__svg .dims path { stroke: #e8f1ff; stroke-width: 1; fill: none; }
+    .hf-hero__svg .dims text { fill: #e8f1ff; font-size: 14px; }
+
+    /* Step labels cycling top-left */
+    .hf-hero__svg .lab {
+      fill: #ffa600; font-size: 18px; letter-spacing: 0.2em;
+      opacity: 0;
+    }
+    .hf-hero__svg .lab.a { animation: lab 1.7s ease 0.6s forwards; }
+    .hf-hero__svg .lab.b { animation: lab 4.8s ease 1.9s forwards; }
+    .hf-hero__svg .lab.c { animation: lab 1.8s ease 6.5s forwards; }
+
+    /* Takt counter (TAKT 01 / 10, etc.) */
+    .hf-hero__svg .tk {
+      fill: #e8f1ff; font-size: 14px; letter-spacing: 0.15em;
+      opacity: 0;
+      animation: tk 0.42s linear var(--t) both;
+    }
+
+    /* Progress bars in top-right (one per chapter, fills L→R as chapter plays) */
+    /* Whole progress-bar group fades out at the end so the final frame is clean */
+    .hf-hero__svg .steps { opacity: 1; animation: hf-fade 1s ease 9.5s forwards; }
+    .hf-hero__svg .tr { fill: rgba(26, 26, 24, 0.18); }
+    .hf-hero__svg .fl { fill: #AD0C1B; transform-origin: left; transform: scaleX(0); }
+    /* Each bar fills during its chapter, then ALL bars fade out on the last frame. */
+    .hf-hero__svg .f1 { animation: hf-sx 1.5s linear 2.5s forwards; }
+    .hf-hero__svg .f2 { animation: hf-sx 0.8s linear 4s   forwards; }
+    .hf-hero__svg .f3 { animation: hf-sx 3s   linear 4.8s forwards; }
+    .hf-hero__svg .f4 { animation: hf-sx 1.3s linear 8.3s forwards, hf-fade 1s ease 9.5s forwards; }
+
+    /* Centered tag — sits below the hero illustration, fades in after the chapter sequence */
+    /* Centered scope tagline — sits between wordmark and animation, fades in after chapter 1 */
+    .hero__tag {
+      text-align: center;
+      margin: 0 0 6px;
+      opacity: 0;
+      animation: hf-in 0.6s ease 0.3s forwards;
+    }
+    .hero__tag .tag {
+      color: #ffa600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      margin: 0;
+    }
+    .hero__tag .tag {
+      color: #ffa600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      margin: 0;
+    }
+    @media (max-width: 720px) {
+      .hero__tag { margin: -16px auto 0; }
+      .hero__tag .tag { font-size: 11px; }
+    }
+    
+
+
+    /* Bottom info card — overlapping the SVG */
+    .hero__card-wrap {
+      width: min(1180px, calc(100vw - 32px));
+      margin: -80px auto 0;
+      z-index: 3;
+      flex-shrink: 0;
+    }
+    .hero__card {
+      background: rgba(250, 250, 247, 0.94);
+      backdrop-filter: blur(14px) saturate(1.05);
+      -webkit-backdrop-filter: blur(14px) saturate(1.05);
+      border-top: 3px solid var(--hf-red);
+      padding: 32px 40px 36px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+      gap: 40px;
+      align-items: start;
+    }
+    .hero__card__intro { padding-right: 12px; }
+    .hero__card__contacts {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+    .hero__card__contacts dl { margin: 0; }
+    @media (max-width: 860px) {
+      .hero__card { grid-template-columns: 1fr; padding: 24px 22px 26px; gap: 22px; }
+      .hero__card__intro { padding-right: 0; }
+      .hero__stage-inner { transform: none; }
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      text-transform: uppercase;
+      color: var(--hf-mid-2);
+      margin-bottom: 14px;
+    }
+    .accent-square {
+      width: 9px;
+      height: 9px;
+      background: var(--hf-red);
+      flex-shrink: 0;
+    }
+    .card__title {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 3.2vw, 2.625rem);
+      line-height: 1.04;
+      letter-spacing: -0.018em;
+      color: var(--hf-ink);
+      margin: 0 0 14px 0;
+    }
+    .card__sub {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.55;
+      color: var(--hf-mid-2);
+      margin: 0 0 22px 0;
+    }
+    .card__contacts {
+      display: grid;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+    }
+    .card__contact {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 18px;
+      align-items: baseline;
+      padding: 12px 0;
+      border-top: 1px solid var(--hf-line);
+    }
+    .card__contact:last-child { border-bottom: 1px solid var(--hf-line); }
+    .card__contact dt {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      text-transform: uppercase;
+      color: var(--hf-mid-2);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+    }
+    .card__contact dd {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--hf-ink);
+      margin: 0;
+    }
+    .card__contact dd a {
+      color: var(--hf-ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 200ms ease;
+    }
+    .card__contact dd a:hover { border-bottom-color: var(--hf-red); }
+
+    /* Footer */
+    .foot {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      background: var(--hf-ink);
+      color: var(--hf-paper-warm);
+      padding: 18px 32px;
+      flex-shrink: 0;
+    }
+    .foot__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .foot__mark {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+    .wordmark {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Archivo', sans-serif;
+      font-size: 1rem;
+      line-height: 1;
+      letter-spacing: 0.005em;
+    }
+    .wordmark--light { color: var(--hf-paper-warm); }
+    .wordmark__a { font-weight: 900; }
+    .wordmark__bar {
+      display: inline-block;
+      width: 3px;
+      height: 1.05em;
+      background: var(--hf-red);
+      margin: 0 0.42em;
+      flex-shrink: 0;
+    }
+    .wordmark__b { font-weight: 400; }
+    .foot__copy {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 400;
+      letter-spacing: var(--letter-mono);
+      color: var(--hf-mid-3);
+      text-transform: uppercase;
+    }
+    .foot__link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      color: var(--hf-paper-warm);
+      text-decoration: none;
+      text-transform: uppercase;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+      transition: border-color 200ms ease;
+    }
+    .foot__link:hover { border-bottom-color: var(--hf-red); }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .hero { padding: 24px 24px 0; }
+      .foot { padding: 16px 24px; }
+      .foot__inner { gap: 18px; }
+      .foot__mark { gap: 16px; }
+    }
+    @media (max-width: 720px) {
+      .hero { padding: 16px 18px 0; gap: 0; }
+      .hero__brand { font-size: 0.95rem; padding: 4px 0 2px; }
+      .hero__tag .tag { font-size: 11px; }
+      .hf-hero__svg { max-height: 46vh; }
+      .hero__stage-inner { transform: none; }
+      .hero__card-wrap { margin: -60px auto 0; }
+      .hero__card { padding: 20px 18px 22px; gap: 18px; }
+      .card__title { font-size: clamp(26px, 8vw, 38px); }
+      .card__sub { font-size: 14px; }
+      .card__contact { grid-template-columns: 84px 1fr; gap: 12px; }
+      .foot { padding: 14px 18px; }
+      .foot__inner { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .foot__mark { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .foot__link {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        padding: 4px 0;
+        border-bottom: 1px solid rgba(173, 12, 27, 0.5);
+        margin-top: 2px;
+        align-self: flex-start;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 12px 14px 0; gap: 0; }
+      .hero__brand { font-size: 0.85rem; padding: 4px 0 2px; }
+      .hero__tag { display: block; margin: 0 0 4px; }
+      .hero__tag .tag { font-size: 9px; letter-spacing: 0.16em; }
+      .hf-hero__svg { max-height: 46vh; }
+      .hero__stage-inner { transform: none; }
+      .hero__card-wrap { margin: -40px auto 0; width: calc(100vw - 24px); }
+      .hero__card { padding: 16px 14px 18px; gap: 14px; }
+      .card__contact { grid-template-columns: 78px 1fr; gap: 10px; }
+      .card__contact dt { font-size: 9.5px; }
+      .card__contact dd { font-size: 13px; }
+      .foot { padding: 12px 14px; font-size: 0.7rem; }
+      .foot__copy { font-size: 9.5px; letter-spacing: 0.06em; }
+      .foot__link {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        padding: 4px 0;
+        border-bottom: 1px solid rgba(173, 12, 27, 0.4);
+        margin-top: 2px;
+        align-self: flex-start;
+      }
+    }
+
+    /* Keyframes — refined v3 formwork sequence */
+        /* Kühlturm (Kletterschalung) — pour, formwork, crane, steam, takt */
+    @keyframes hf-draw     { to { stroke-dashoffset: 0; } }
+    @keyframes hf-in       { to { opacity: 1; } }
+    @keyframes hf-fade     { to { opacity: 0; } }
+    @keyframes hf-meta-in  { to { opacity: 0.8; } }
+    @keyframes hf-grow     { to { opacity: 1; transform: scaleY(1); } }
+    @keyframes hf-slide    { to { opacity: 1; transform: none; } }
+    @keyframes hf-pop      { to { opacity: 1; transform: scale(1); } }
+    @keyframes hf-flow     { to { transform: scaleX(1); } }
+    @keyframes hf-sc       { to { transform: scaleX(0); } }
+    @keyframes hf-sx       { to { transform: scaleX(1); } }
+    @keyframes hf-cure     { to { filter: brightness(0.88); } }
+    @keyframes hf-str      { to { stroke-dashoffset: -12; } }
+    @keyframes hf-nozzle {
+      0%   { opacity: 1; transform: translateX(230px); }
+      92%  { opacity: 1; }
+      100% { opacity: 0; transform: translateX(968px); }
+    }
+    @keyframes hf-vibrate {
+      0%   { opacity: 0; transform: translateY(-30px); }
+      20%  { opacity: 1; transform: translateY(0); }
+      35%  { transform: translate(-1.5px, 0); }
+      50%  { transform: translate(1.5px, 0); }
+      65%  { transform: translate(-1.5px, 0); }
+      80%  { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-40px); }
+    }
+    @keyframes hf-screed {
+      0%   { opacity: 1; transform: translateX(230px); }
+      92%  { opacity: 1; }
+      100% { opacity: 0; transform: translateX(968px); }
+    }
+    @keyframes hf-steam {
+      0%   { opacity: 0; transform: translateY(8px); }
+      40%  { opacity: 0.7; }
+      100% { opacity: 0; transform: translateY(-12px); }
+    }
+    @keyframes hf-lower {
+      0%   { opacity: 1; }
+      25%  { opacity: 1; transform: translateY(8px); }
+      100% { opacity: 0; transform: translateY(70px); }
+    }
+    @keyframes hf-drop {
+      0%   { opacity: 1; }
+      100% { opacity: 0; transform: translateY(100px); }
+    }
+    @keyframes hf-lab {
+      0%   { opacity: 0; transform: translateX(-10px); }
+      15%  { opacity: 1; transform: none; }
+      85%  { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    /* Kühlturm-specific */
+    @keyframes pour  { to { transform: scaleY(1); } }
+    @keyframes fw    { 0% { opacity: 0; transform: translateY(26px); } 14% { opacity: 1; transform: none; } 86% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+    @keyframes rbk   { 0% { opacity: 0; } 20% { opacity: 0.9; } 75% { opacity: 0.9; } 100% { opacity: 0; } }
+    @keyframes mast  { to { transform: scaleY(1); } }
+    @keyframes jib   { to { transform: translateY(0); } }
+    @keyframes sw    { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+    @keyframes pl    { 0% { opacity: 0; transform: translateY(0) scale(0.5); } 20% { opacity: 0.9; } 100% { opacity: 0; transform: translateY(-70px) scale(2.2); } }
+    @keyframes lab   { 0% { opacity: 0; transform: translateX(-10px); } 12% { opacity: 1; transform: none; } 88% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes tk    { 0%, 99% { opacity: 1; } 100% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+      .hf-hero__svg * { animation-duration: 0.01s !important; animation-delay: 0s !important; }
+      .hf-hero__svg .ln { stroke-dashoffset: 0; }
+      .hf-hero__svg .soil, .hf-hero__svg .crane, .hf-hero__svg .dims { opacity: 1; }
+      .hf-hero__svg .col { stroke-dashoffset: 0; }
+      .hf-hero__svg .lw { transform: scaleY(1); filter: brightness(0.88); }
+      .hf-hero__svg .rb { opacity: 0.9; }
+      .hf-hero__svg .mast { transform: scaleY(1); }
+      .hf-hero__svg .jib { transform: translateY(0); }
+      .hf-hero__svg .pl { opacity: 0; }
+      .hf-hero__svg .lab.c { opacity: 1; }
+      .hero__tag { opacity: 1; }
+    }
+
+
+    /* Print fallback */
+    @media print {
+      body { background: var(--hf-paper); color: var(--hf-ink); }
+      .bg-wash { display: none; }
+      .hf-hero__svg { background: var(--hf-paper); }
+      .hf-hero__svg { max-height: 32vh; }
+      .hero__card-wrap { position: static; transform: none; width: 100%; margin: 16px auto 24px; }
+      .hero__card {
+        background: var(--hf-paper);
+        backdrop-filter: none; -webkit-backdrop-filter: none;
+        border: 1px solid var(--hf-line);
+        border-top: 2px solid var(--hf-red);
+      }
+      .foot { background: var(--hf-paper); color: var(--hf-ink); border-top: 1px solid var(--hf-line); }
+      .wordmark--light, .foot__link { color: var(--hf-ink); }
+      .hf-hero__svg * { animation: none !important; }
+      .hf-hero__svg .ln { stroke-dashoffset: 0; }
+      .hf-hero__svg .lw { transform: scaleY(1); }
+      .hf-hero__svg .mast { transform: scaleY(1); }
+      .hf-hero__svg .jib { transform: translateY(0); }
+      .hf-hero__svg .pl, .hf-hero__svg .rb { opacity: 0; }
+      .hf-hero__svg .lab.c, .hf-hero__svg .dims { opacity: 1; }
+      .hero__tag { opacity: 1; position: static; text-align: center; padding: 24px; }
+    }
+
+
+    @page { size: A4; margin: 18mm; }
+  </style>
+</head>
+<body>
+  <div class="bg-wash" aria-hidden="true"></div>
+
+  <main class="hero">
+    <div class="hero__brand" aria-label="HUBER FORMWORK">
+      <span class="wordmark__a">HUBER</span><span class="wordmark__bar" aria-hidden="true"></span><span class="wordmark__b">FORMWORK</span>
+    </div>
+    <!-- Centered scope tagline — sits between the wordmark and the animation -->
+    <div class="hero__tag" aria-hidden="false">
+      <p class="tag">Kletterschalung · Schalenbau · Ortbeton</p>
+    </div>
+
+    <div class="hero__stage">
+      <div id="hf-stage-inner" class="hero__stage-inner">
+        <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet" class="hf-hero__svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="cg" gradientUnits="userSpaceOnUse" x1="560" x2="1000" y1="0" y2="0">
+              <stop offset="0" stop-color="#9fb0c6"/><stop offset=".5" stop-color="#dbe4f0"/><stop offset="1" stop-color="#9fb0c6"/>
+            </linearGradient>
+            <pattern id="soil" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <path d="M0 0V18" stroke="#e8f1ff" stroke-opacity=".18"/>
+            </pattern>
+          </defs>
+          <g id="base"></g><g id="cols"></g><g id="shell"></g><g id="crane"></g>
+          <g id="rebar"></g><g id="forms"></g><g id="plume"></g><g id="dims"></g><g id="labs"></g>
+</svg>
+      </div>
+    </div>
+
+
+    <div class="hero__card-wrap">
+      <div class="hero__card">
+        <div class="hero__card__intro">
+
+          <span class="eyebrow">
+            <span class="accent-square" aria-hidden="true"></span>
+            <span>Kontakt · Anfrage · Beratung</span>
+          </span>
+          <h2 class="card__title">Sprechen Sie mit uns über Ihr Projekt.</h2>
+          <p class="card__sub">Direkt erreichbar — telefonisch, per E-Mail oder vor Ort in Ravensburg.</p>
+        </div>
+        <div class="hero__card__contacts">
+          <dl class="card__contacts">
+            <div class="card__contact">
+              <dt><span class="accent-square" aria-hidden="true"></span>Telefon</dt>
+              <dd><a href="tel:+497517694522">0751 769 45 22</a></dd>
+            </div>
+            <div class="card__contact">
+              <dt><span class="accent-square" aria-hidden="true"></span>E-Mail</dt>
+              <dd><a href="mailto:info@huberformwork.de">info@huberformwork.de</a></dd>
+            </div>
+            <div class="card__contact">
+              <dt><span class="accent-square" aria-hidden="true"></span>Adresse</dt>
+              <dd><a href="https://www.google.com/maps/search/?api=1&amp;query=Rautbr%C3%BChl+11+88214+Ravensburg" target="_blank" rel="noopener">Rautbrühl 11, 88214 Ravensburg ↗</a></dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <span class="foot__copy">© 2026 HUBER FORMWORK · RAUTBRÜHL 11 · 88214 RAVENSBURG</span>
+      <a href="impressum.html" class="foot__link">Impressum ↗</a>
+    </div>
+  </footer>
+
+
+  <script>
+  /* Kühlturm (cooling tower) — 10-takt Kletterschalung sequence.
+     Builds: ground, 19 column guides, 10 shell lifts (each with formwork + rebar),
+     crane (mast + jib + swing bucket), 4 steam plumes, dimensions, 3 chapter labels. */
+  (function(){
+    var NS="http://www.w3.org/2000/svg",CX=780,TH=14,N=10,H=37,Y0=460,T0=1.9,DT=.42;
+    function E(p,n,a,s){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(s)e.setAttribute("style",s);document.getElementById(p).appendChild(e);return e}
+    function hw(y){var u=(Y0-y)/370;return u<=.78?Math.sqrt(118*118+Math.pow((.78-u)/.78,2)*(190*190-118*118)):Math.sqrt(118*118+Math.pow((u-.78)/.22,2)*(128*128-118*118))}
+    function pts(a,m){return a.map(function(p){return (m?2*CX-p[0]:p[0])+","+p[1]}).join(" ")}
+
+    E("base","rect",{"class":"soil",x:60,y:520,width:1080,height:80});
+    E("base","path",{"class":"ln",pathLength:1,d:"M60 520H1140"});
+    for(var k=-9;k<=9;k++){var x=CX+k*20,x2=CX+k*20*1.18;
+      E("cols","path",{"class":"col",pathLength:1,d:"M"+x2+" 520L"+x+" 460"},"--i:"+(k+9))}
+
+    for(var i=0;i<N;i++){
+      var yb=Y0-i*H,yt=yb-H,xb=CX-hw(yb),xt=CX-hw(yt),t=(T0+i*DT).toFixed(2);
+      var L=[[xb,yb],[xt,yt],[xt+TH,yt],[xb+TH,yb]];
+      var OP=[[xb-7,yb],[xt-7,yt],[xt,yt],[xb,yb]];
+      var IP=[[xb+TH,yb],[xt+TH,yt],[xt+TH+7,yt],[xb+TH+7,yb]];
+      var dur=i==N-1?"1.9s":".95s", ft=(parseFloat(t)-.1).toFixed(2);
+      [0,1].forEach(function(m){
+        E("shell","polygon",{"class":"lw",points:pts(L,m)},"--t:"+t+"s");
+        var gg=document.createElementNS(NS,"g");gg.setAttribute("class","fw");gg.setAttribute("style","--t:"+ft+"s;--dur:"+dur);
+        [OP,IP].forEach(function(P){var pl=document.createElementNS(NS,"polygon");pl.setAttribute("points",pts(P,m));gg.appendChild(pl)});
+        var o=m?2*CX-(xt-7):(xt-7),o2=m?2*CX-(xt-30):(xt-30);
+        var n1=m?2*CX-(xt+TH+7):(xt+TH+7),n2=m?2*CX-(xt+TH+30):(xt+TH+30);
+        var pa=document.createElementNS(NS,"path");pa.setAttribute("d","M"+o+" "+yt+"H"+o2+"M"+o2+" "+yt+"V"+(yt-12)+"M"+n1+" "+yt+"H"+n2+"M"+n2+" "+yt+"V"+(yt-12));
+        gg.appendChild(pa);document.getElementById("forms").appendChild(gg);
+        var rt=(parseFloat(t)-.3).toFixed(2);
+        [3,TH-3].forEach(function(dx){var X=m?2*CX-(xt+dx):(xt+dx);
+          E("rebar","path",{"class":"rb",d:"M"+X+" "+yt+"V"+(yt-15)},"--t:"+rt+"s")});
+      });
+      var tx=E("labs","text",{"class":"tk",x:60,y:160},"--t:"+t+"s");
+      tx.textContent="TAKT "+(i<9?"0":"")+(i+1)+" / "+N;
+    }
+
+    var c=E("crane","g",{"class":"crane"}),top=40;
+    var mast=document.createElementNS(NS,"rect");mast.setAttribute("class","mast");mast.setAttribute("x",CX-8);mast.setAttribute("y",top);mast.setAttribute("width",16);mast.setAttribute("height",520-top);c.appendChild(mast);
+    var jg=document.createElementNS(NS,"g");jg.setAttribute("class","jib");
+    jg.innerHTML='<path d="M'+(CX-60)+' '+top+'H'+(CX+100)+'"/><path d="M'+CX+' '+(top-22)+'L'+(CX-60)+' '+top+'M'+CX+' '+(top-22)+'L'+(CX+100)+' '+top+'"/><rect class="cw" x="'+(CX-72)+'" y="'+(top-2)+'" width="14" height="16"/>'
+     +'<g class="swing"><path d="M'+(CX+92)+' '+top+'V'+(top+36)+'"/><path class="bk" d="M'+(CX+84)+' '+(top+36)+'h16l-3 16h-10z"/></g>';
+    c.appendChild(jg);
+
+    for(var k2=0;k2<4;k2++)E("plume","circle",{"class":"pl",cx:CX+(k2%2?10:-10),cy:84,r:20},"--k:"+k2);
+
+    var d=E("dims","g",{});
+    d.innerHTML='<path d="M1050 460V90M1040 460H1060M1040 90H1060"/><text x="1070" y="280" transform="rotate(90 1070 280)" text-anchor="middle" style="transform-box:view-box">H = 150 m</text>'
+     +'<path d="M'+(CX-hw(171))+' 171H'+(CX+hw(171))+'" stroke-dasharray="4 4" stroke="#ffa600"/><text x="'+CX+'" y="162" text-anchor="middle" fill="#ffa600">Ø 76 m</text>';
+
+    var l=[["a","01 · EINSCHALEN &amp; BEWEHREN",60],["b","02 · BETONIEREN IM TAKT",60],["c","03 · AUSSCHALEN",60]];
+    l.forEach(function(x){var t=E("labs","text",{"class":"lab "+x[0],x:x[2],y:130});t.innerHTML=x[1]});
+  })();
+  </script>
+
+  </body>
+</html>
