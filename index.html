@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HUBER FORMWORK — Kontakt · Ravensburg</title>
+  <title>HUBER FORMWORK — Kontakt · Salem-Beuren</title>
   <meta name="description" content="HUBER FORMWORK, Schalungsbau aus Ravensburg (Oberschwaben). Kletterschalung, Deckenschalung, Sichtbeton. Sprechen Sie mit uns über Ihr Projekt." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -129,13 +129,15 @@
       display: block;
       flex-shrink: 1;
     }
-    /* Kühlturm (cooling tower) — hyperboloid 10-takt pour sequence.
+    /* Kühlturm (cooling tower) — 10-takt Kletterschalung pour sequence.
        Editorial construction-drawing style: dark ink line work on warm paper,
-       red signal-accent for active elements (matches v1 slab page). */
-    .hf-hero__svg { background: transparent; }
+       red signal-accent for the formwork yokes, swing bucket, and dimensions.
+       Variable wall thickness (taper), 25m scale bar, progress bar, hatching
+       overlay after cure, last-takt strip-out animation, mark arrow climbing
+       with the crane, refined crane with zigzag trusses. */
     .hf-hero__svg .hf-grid { fill: url(#hfGrid); }
     .hf-hero__svg .ln {
-      fill: none; stroke: #1A1A18; stroke-width: 2;
+      fill: none; stroke: var(--hf-ink); stroke-width: 2;
       stroke-dasharray: 1; stroke-dashoffset: 1;
       animation: hf-draw 0.8s ease 0.1s forwards;
     }
@@ -145,77 +147,104 @@
       animation: hf-in 0.8s ease 0.2s forwards;
     }
     .hf-hero__svg .col {
-      fill: none; stroke: #5C5B53; stroke-width: 1.5;
+      fill: none; stroke: var(--hf-mid); stroke-width: 1.5;
       stroke-dasharray: 1; stroke-dashoffset: 1;
       animation: hf-draw 0.6s ease calc(0.4s + var(--i) * 0.04s) forwards;
     }
-    /* Pour: each lift of the climbing formwork — concrete gradient on paper */
+    .hf-hero__svg .scale path { stroke: var(--hf-mid); stroke-width: 1; fill: none; }
+    .hf-hero__svg .scale text { fill: var(--hf-mid); font-size: 12px; }
+    .hf-hero__svg .scale { opacity: 0; animation: hf-in 0.6s ease 0.9s forwards; }
+
+    /* Concrete lift: pour (scaleY 0→1) + cure (brightness 0.88) + edge fade (red→ink) */
     .hf-hero__svg .lw {
       fill: url(#cg);
-      stroke: #1A1A18; stroke-width: 1;
-      transform-origin: bottom;
-      transform: scaleY(0);
+      stroke: var(--hf-ink); stroke-width: 1;
+      transform-origin: bottom; transform: scaleY(0);
       animation:
-        pour 0.38s cubic-bezier(.3,.8,.4,1) var(--t) forwards,
-        cure 1s ease calc(var(--t) + 0.9s) forwards;
+        hf-pour 0.38s cubic-bezier(.3,.8,.4,1) var(--t) forwards,
+        hf-cure 1s ease calc(var(--t) + 0.9s) forwards,
+        hf-edge 1.2s ease var(--t) forwards;
     }
+    /* Hatching overlay (cured concrete texture) */
+    .hf-hero__svg .hatch {
+      fill: url(#hatch);
+      opacity: 0;
+      animation: hf-in 0.6s ease var(--t) forwards;
+    }
+    /* Front face — closes the cross-section after the back is poured (darker shade reads as front) */
+    .hf-hero__svg .front {
+      fill: #B5B3A5;
+      stroke: var(--hf-ink); stroke-width: 1;
+      opacity: 0;
+      animation: hf-in 0.6s ease var(--t) forwards;
+    }
+
     /* Climbing formwork: red waling beam (yoke) holds the wet concrete */
     .hf-hero__svg .fw {
       opacity: 0;
-      animation: fw var(--dur, 0.95s) linear var(--t) forwards;
+      animation: hf-fw var(--dur) ease-in-out var(--t) forwards;
     }
-    .hf-hero__svg .fw polygon { fill: rgba(173, 12, 27, 0.18); stroke: #AD0C1B; stroke-width: 1.8; }
-    .hf-hero__svg .fw path    { stroke: #AD0C1B; stroke-width: 2.2; fill: none; }
-    /* Rebar ties (vertical starter bars visible briefly) */
+    .hf-hero__svg .fw polygon { fill: rgba(173, 12, 27, 0.18); stroke: var(--hf-red); stroke-width: 1.8; }
+    .hf-hero__svg .fw path    { stroke: var(--hf-red); stroke-width: 2; fill: none; stroke-linecap: round; }
+    /* Last takt: stays on, then strips out (translateY) at 6.7s */
+    .hf-hero__svg .fw.last { animation: hf-fwin 0.35s ease-out var(--t) forwards, hf-strip 1s ease-in 6.7s forwards; }
+
+    /* Rebar starter bars (visible briefly during the pour) */
     .hf-hero__svg .rb {
-      stroke: #1A1A18; stroke-width: 1.5;
+      stroke: var(--hf-ink); stroke-width: 1.5;
       stroke-dasharray: 3 2;
       opacity: 0;
-      animation: rbk 0.9s linear var(--t) forwards;
+      animation: hf-rbk 0.9s linear var(--t) forwards;
     }
+
     /* Crane: vertical mast (steps-animated up) + horizontal jib (translates up from below) */
     .hf-hero__svg .mast {
-      fill: none; stroke: #1A1A18; stroke-width: 2;
-      transform-origin: bottom; transform: scaleY(0.23);
-      animation: mast 4.2s steps(10, end) 1.9s forwards;
+      transform-origin: 50% 100%; transform: scaleY(1);
     }
-    .hf-hero__svg .mastx { stroke: #5C5B53; stroke-width: 1; opacity: 0.6; }
-    .hf-hero__svg .jib {
-      transform: translateY(370px);
-      animation: jib 4.2s steps(10, end) 1.9s forwards;
-    }
-    .hf-hero__svg .jib path { stroke: #1A1A18; stroke-width: 2.5; fill: none; }
-    .hf-hero__svg .jib .cw { fill: #1A1A18; }
-    .hf-hero__svg .jib .bk { fill: #AD0C1B; }
-    .hf-hero__svg .swing { transform-origin: 50% 0; animation: sw 1.3s ease-in-out infinite alternate; }
-    .hf-hero__svg .crane { opacity: 0; animation: hf-in 0.6s ease 1.5s forwards; }
-    /* Steam plume rings (4 wisps rising from top) */
-    .hf-hero__svg .pl {
-      fill: rgba(26, 26, 24, 0.08);
-      stroke: rgba(26, 26, 24, 0.25);
-      opacity: 0;
-      animation: pl 3.2s ease-out calc(7.3s + var(--k) * 0.55s) infinite;
-    }
-    /* Dimensions (H=150m vertical + Ø=76m horizontal) — editorial construction-drawing */
-    .hf-hero__svg .dims { opacity: 0; animation: hf-in 0.6s ease 7.6s forwards; }
-    .hf-hero__svg .dims path { stroke: #5C5B53; stroke-width: 1; fill: none; }
-    .hf-hero__svg .dims text { fill: #5C5B53; font-size: 14px; font-family: 'IBM Plex Mono', monospace; }
-    /* Step labels cycling top-left — red accent on paper */
+    .hf-hero__svg .mast rect { fill: none; stroke: var(--hf-ink); stroke-width: 2; }
+    .hf-hero__svg .mast path { stroke: var(--hf-mid); stroke-width: 1; fill: none; opacity: 0.7; }
+    .hf-hero__svg .jibw { transform: translateY(0); }
+    .hf-hero__svg .jib path { stroke: var(--hf-ink); stroke-width: 2.5; fill: none; }
+    .hf-hero__svg .jib .tie { stroke-width: 1; opacity: 0.7; }
+    .hf-hero__svg .jib .cw { fill: var(--hf-ink); }
+    .hf-hero__svg .swing path { stroke: var(--hf-ink); stroke-width: 1.5; }
+    .hf-hero__svg .swing .bk { fill: var(--hf-red); stroke: none; }
+
+    /* Dimensions: H=150m vertical + Ø=76m horizontal at the throat */
+    .hf-hero__svg .dims { opacity: 0; animation: hf-in 0.6s ease 1.6s forwards; }
+    .hf-hero__svg .dims path { stroke: var(--hf-mid); stroke-width: 1; fill: none; }
+    .hf-hero__svg .dims text { fill: var(--hf-mid); font-size: 14px; }
+    .hf-hero__svg .dims .late { opacity: 0; animation: hf-in 0.6s ease 7.4s forwards; }
+    .hf-hero__svg .dims .or { stroke: var(--hf-red); stroke-dasharray: 4 4; }
+    .hf-hero__svg .dims .ot { fill: var(--hf-red); }
+
+    /* Mark arrow next to H=150m — climbs with the crane */
+    .hf-hero__svg .mk { animation: hf-mk 4.2s steps(10, start) 1.9s both; }
+    .hf-hero__svg .mk path { fill: var(--hf-red); stroke: none; }
+
+    /* Chapter labels cycling top-left */
     .hf-hero__svg .lab {
-      fill: #AD0C1B; font-size: 18px; letter-spacing: 0.2em;
-      font-family: 'IBM Plex Mono', monospace; font-weight: 500;
+      fill: var(--hf-red); font-size: 18px; letter-spacing: 0.2em; font-weight: 500;
       opacity: 0;
     }
-    .hf-hero__svg .lab.a { animation: lab 1.7s ease 0.6s forwards; }
-    .hf-hero__svg .lab.b { animation: lab 4.8s ease 1.9s forwards; }
-    .hf-hero__svg .lab.c { animation: lab 1.8s ease 6.5s forwards; }
-    /* Takt counter (TAKT 01 / 10, etc.) — dark mono on paper */
+    .hf-hero__svg .lab.a { animation: hf-lab 1.5s ease 0.6s forwards; }
+    .hf-hero__svg .lab.b { animation: hf-lab 4.6s ease 1.9s forwards; }
+    .hf-hero__svg .lab.c { animation: hf-lab 1.7s ease 6.5s forwards; }
+
+    /* Takt counter (TAKT 01 / 10, etc.) */
     .hf-hero__svg .tk {
-      fill: #5C5B53; font-size: 14px; letter-spacing: 0.15em;
-      font-family: 'IBM Plex Mono', monospace;
+      fill: var(--hf-mid); font-size: 14px; letter-spacing: 0.15em;
       opacity: 0;
-      animation: tk 0.42s linear var(--t) both;
+      animation: hf-tk 0.42s linear var(--t) forwards;
     }
+    .hf-hero__svg .tk.last { animation: hf-in 0.2s linear var(--t) forwards; }
+    .hf-hero__svg .trk { fill: rgba(26, 26, 24, 0.12); }
+    .hf-hero__svg .pb {
+      fill: var(--hf-red); transform-origin: left; transform: scaleX(0);
+      animation: hf-sx 4.2s steps(10, start) 1.9s forwards;
+    }
+
+}
 
 
     /* Construction-paper grid + ground textures */
@@ -494,74 +523,50 @@
       }
     }
 
+    /* Base plate (foundation slab) */
+    .hf-hero__svg .plate {
+      fill: var(--hf-ink);
+      opacity: 0;
+      animation: hf-in 0.6s ease 0.2s forwards;
+    }
+    .hf-hero__svg .plate-edge {
+      fill: none; stroke: var(--hf-ink); stroke-width: 2;
+      stroke-dasharray: 1; stroke-dashoffset: 1;
+      animation: hf-draw 0.6s ease 0.1s forwards;
+    }
+
     /* Keyframes — refined v3 formwork sequence */
         /* Kühlturm (Kletterschalung) — pour, formwork, crane, steam, takt */
     @keyframes hf-draw     { to { stroke-dashoffset: 0; } }
     @keyframes hf-in       { to { opacity: 1; } }
-    @keyframes hf-fade     { to { opacity: 0; } }
-    @keyframes hf-meta-in  { to { opacity: 0.8; } }
-    @keyframes hf-grow     { to { opacity: 1; transform: scaleY(1); } }
-    @keyframes hf-slide    { to { opacity: 1; transform: none; } }
-    @keyframes hf-pop      { to { opacity: 1; transform: scale(1); } }
-    @keyframes hf-flow     { to { transform: scaleX(1); } }
-    @keyframes hf-sc       { to { transform: scaleX(0); } }
+    @keyframes hf-pour     { to { transform: scaleY(1); } }
+    @keyframes hf-cure     { from { filter: brightness(1.12); } to { filter: brightness(0.88); } }
+    @keyframes hf-edge     { from { stroke: #AD0C1B; stroke-width: 1.8; } to { stroke: #1A1A18; stroke-width: 1; } }
+    @keyframes hf-fw       { 0% { opacity: 0; transform: translateY(var(--h)); } 16% { opacity: 1; transform: none; } 84% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+    @keyframes hf-fwin     { 0% { opacity: 0; transform: translateY(var(--h)); } 100% { opacity: 1; transform: none; } }
+    @keyframes hf-strip    { 0% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translate(calc(var(--sx) * 46px), -14px); } }
+    @keyframes hf-rbk      { 0% { opacity: 0; } 20% { opacity: 0.9; } 75% { opacity: 0.9; } 100% { opacity: 0; } }
+            @keyframes hf-mk       { from { transform: translateY(0); } to { transform: translateY(-370px); } } to { transform: translateY(-333px); } }
+            @keyframes hf-lab      { 0% { opacity: 0; transform: translateX(-10px); } 12% { opacity: 1; transform: none; } 88% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes hf-tk       { 0%, 97% { opacity: 1; } 100% { opacity: 0; } }
     @keyframes hf-sx       { to { transform: scaleX(1); } }
-    @keyframes hf-cure     { to { filter: brightness(0.88); } }
-    @keyframes hf-str      { to { stroke-dashoffset: -12; } }
-    @keyframes hf-nozzle {
-      0%   { opacity: 1; transform: translateX(230px); }
-      92%  { opacity: 1; }
-      100% { opacity: 0; transform: translateX(968px); }
+        @keyframes hf-out      { to { opacity: 0; } }
+    @keyframes hf-cycle {
+      0%   { opacity: 0; }
+      3%   { opacity: 1; }                       /* fade in (0-0.42s) */
+      46%  { opacity: 1; }                       /* hold through build (0.42-6.5s) */
+      72%  { opacity: 1; }                       /* hold final tower (6.5-10s) */
+      85%  { opacity: 0; }                       /* fade out (10-12s) */
+      93%  { opacity: 0; }                       /* hidden (12-13s) */
+      100% { opacity: 1; }                       /* fade back in (13-14s) */
     }
-    @keyframes hf-vibrate {
-      0%   { opacity: 0; transform: translateY(-30px); }
-      20%  { opacity: 1; transform: translateY(0); }
-      35%  { transform: translate(-1.5px, 0); }
-      50%  { transform: translate(1.5px, 0); }
-      65%  { transform: translate(-1.5px, 0); }
-      80%  { opacity: 1; transform: translateY(0); }
-      100% { opacity: 0; transform: translateY(-40px); }
-    }
-    @keyframes hf-screed {
-      0%   { opacity: 1; transform: translateX(230px); }
-      92%  { opacity: 1; }
-      100% { opacity: 0; transform: translateX(968px); }
-    }
-    @keyframes hf-steam {
-      0%   { opacity: 0; transform: translateY(8px); }
-      40%  { opacity: 0.7; }
-      100% { opacity: 0; transform: translateY(-12px); }
-    }
-    @keyframes hf-lower {
-      0%   { opacity: 1; }
-      25%  { opacity: 1; transform: translateY(8px); }
-      100% { opacity: 0; transform: translateY(70px); }
-    }
-    @keyframes hf-drop {
-      0%   { opacity: 1; }
-      100% { opacity: 0; transform: translateY(100px); }
-    }
-    @keyframes hf-lab {
-      0%   { opacity: 0; transform: translateX(-10px); }
-      15%  { opacity: 1; transform: none; }
-      85%  { opacity: 1; }
-      100% { opacity: 0; }
-    }
-    /* Kühlturm-specific */
-    @keyframes pour  { to { transform: scaleY(1); } }
-    @keyframes fw    { 0% { opacity: 0; transform: translateY(26px); } 14% { opacity: 1; transform: none; } 86% { opacity: 1; transform: none; } 100% { opacity: 0; } }
-    @keyframes rbk   { 0% { opacity: 0; } 20% { opacity: 0.9; } 75% { opacity: 0.9; } 100% { opacity: 0; } }
-    @keyframes mast  { to { transform: scaleY(1); } }
-    @keyframes jib   { to { transform: translateY(0); } }
-    @keyframes sw    { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
-    @keyframes pl    { 0% { opacity: 0; transform: translateY(0) scale(0.5); } 20% { opacity: 0.9; } 100% { opacity: 0; transform: translateY(-70px) scale(2.2); } }
-    @keyframes lab   { 0% { opacity: 0; transform: translateX(-10px); } 12% { opacity: 1; transform: none; } 88% { opacity: 1; } 100% { opacity: 0; } }
-    @keyframes tk    { 0%, 99% { opacity: 1; } 100% { opacity: 0; } }
+
+
 
 @media (prefers-reduced-motion: reduce) {
       .hf-hero__svg * { animation-duration: 0.01s !important; animation-delay: 0s !important; }
       .hf-hero__svg .ln { stroke-dashoffset: 0; }
-      .hf-hero__svg .soil, .hf-hero__svg .crane, .hf-hero__svg .dims { opacity: 1; }
+      .hf-hero__svg .soil, .hf-hero__svg .dims { opacity: 1; }
       .hf-hero__svg .col { stroke-dashoffset: 0; }
       .hf-hero__svg .lw { transform: scaleY(1); filter: brightness(0.88); }
       .hf-hero__svg .rb { opacity: 0.9; }
@@ -616,23 +621,23 @@
     <div class="hero__stage">
       <div id="hf-stage-inner" class="hero__stage-inner">
         <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet" class="hf-hero__svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <!-- Concrete gradient: warm grey on paper, central band is the freshly-poured surface (lighter) -->
-            <linearGradient id="cg" gradientUnits="userSpaceOnUse" x1="560" x2="1000" y1="0" y2="0">
-              <stop offset="0" stop-color="#A8A89E"/><stop offset=".5" stop-color="#C9C7BB"/><stop offset="1" stop-color="#A8A89E"/>
-            </linearGradient>
-            <!-- Construction-paper grid (40px squares, faint dark ink) -->
-            <pattern id="hfGrid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" style="fill:none;stroke:#1A1A18;stroke-width:1;opacity:0.05"/>
-            </pattern>
-            <!-- Soil hatching: rotated 45°, warm earth tone -->
-            <pattern id="soil" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <path d="M0 0V18" stroke="#1A1A18" stroke-opacity="0.18"/>
-            </pattern>
-          </defs>
-          <rect class="hf-grid" x="0" y="0" width="1200" height="600"/>
-          <g id="base"></g><g id="cols"></g><g id="shell"></g><g id="crane"></g>
-          <g id="rebar"></g><g id="forms"></g><g id="plume"></g><g id="dims"></g><g id="labs"></g>
+  <defs>
+    <linearGradient id="cg" gradientUnits="userSpaceOnUse" x1="620" x2="940" y1="0" y2="0">
+      <stop offset="0" stop-color="#C9C7BB"/><stop offset=".5" stop-color="#DBD9CD"/><stop offset="1" stop-color="#C9C7BB"/>
+    </linearGradient>
+    <pattern id="hfGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" style="fill:none;stroke:#1A1A18;stroke-width:1;opacity:.05"/>
+    </pattern>
+    <pattern id="soil" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <path d="M0 0V18" stroke="#1A1A18" stroke-opacity=".18"/>
+    </pattern>
+    <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <path d="M0 0V6" stroke="#1A1A18" stroke-opacity=".35" stroke-width=".8"/>
+    </pattern>
+  </defs>
+  <rect class="hf-grid" x="0" y="0" width="1200" height="600"/>
+  <g id="base"></g><g id="cols"></g><g id="shell"></g>
+  <g id="rebar"></g><g id="forms"></g><g id="plume"></g><g id="dims"></g><g id="labs"></g>
 </svg>
       </div>
     </div>
@@ -647,7 +652,7 @@
             <span>Kontakt · Anfrage · Beratung</span>
           </span>
           <h2 class="card__title">Sprechen Sie mit uns über Ihr Projekt.</h2>
-          <p class="card__sub">Direkt erreichbar — telefonisch, per E-Mail oder vor Ort in Ravensburg.</p>
+          <p class="card__sub">Direkt erreichbar — telefonisch, per E-Mail oder vor Ort in Salem-Beuren.</p>
         </div>
         <div class="hero__card__contacts">
           <dl class="card__contacts">
@@ -657,11 +662,11 @@
             </div>
             <div class="card__contact">
               <dt><span class="accent-square" aria-hidden="true"></span>E-Mail</dt>
-              <dd><a href="mailto:info@huberformwork.de">info@huberformwork.de</a></dd>
+              <dd><a href="mailto:info@huberformwork-international.com">info@huberformwork-international.com</a></dd>
             </div>
             <div class="card__contact">
               <dt><span class="accent-square" aria-hidden="true"></span>Adresse</dt>
-              <dd><a href="https://www.google.com/maps/search/?api=1&amp;query=Rautbr%C3%BChl+11+88214+Ravensburg" target="_blank" rel="noopener">Rautbrühl 11, 88214 Ravensburg ↗</a></dd>
+              <dd><a href="https://www.google.com/maps/search/?api=1&amp;query=B%C3%A4chenstrasse+33+88682+Salem-Beuren" target="_blank" rel="noopener">Bächenstrasse 33, 88682 Salem-Beuren ↗</a></dd>
             </div>
           </dl>
         </div>
@@ -671,66 +676,135 @@
 
   <footer class="foot">
     <div class="foot__inner">
-      <span class="foot__copy">© 2026 HUBER FORMWORK · RAUTBRÜHL 11 · 88214 RAVENSBURG</span>
+      <span class="foot__copy">© 2026 HUBER FORMWORK INTERNATIONAL · BÄCHENSTRASSE 33 · 88682 SALEM-BEUREN</span>
       <a href="impressum.html" class="foot__link">Impressum ↗</a>
     </div>
   </footer>
 
 
   <script>
-  /* Kühlturm (cooling tower) — 10-takt Kletterschalung sequence.
-     Builds: ground, 19 column guides, 10 shell lifts (each with formwork + rebar),
-     crane (mast + jib + swing bucket), 4 steam plumes, dimensions, 3 chapter labels. */
-  (function(){
-    var NS="http://www.w3.org/2000/svg",CX=780,TH=14,N=10,H=37,Y0=460,T0=1.9,DT=.42;
-    function E(p,n,a,s){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(s)e.setAttribute("style",s);document.getElementById(p).appendChild(e);return e}
-    function hw(y){var u=(Y0-y)/370;return u<=.78?Math.sqrt(118*118+Math.pow((.78-u)/.78,2)*(190*190-118*118)):Math.sqrt(118*118+Math.pow((u-.78)/.22,2)*(128*128-118*118))}
-    function pts(a,m){return a.map(function(p){return (m?2*CX-p[0]:p[0])+","+p[1]}).join(" ")}
+/* Kühlturm (cooling tower) — 10-takt Kletterschalung sequence.
+   v2: variable wall thickness (taper), 25m scale bar, progress bar,
+   hatching overlay after cure, last-takt strip-out animation, mark arrow
+   climbing with the crane, refined crane with zigzag trusses. */
+(function(){
+  var NS="http://www.w3.org/2000/svg",CX=600,N=10,H=37,Y0=460,T0=1.9,DT=.42,
+      TOT=N*H,SC=TOT/150,TT=.78,RB=152,RT=94,RP=102;
+  function E(p,n,a,s){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);
+    if(s)e.setAttribute("style",s);(typeof p==="string"?document.getElementById(p):p).appendChild(e);return e}
+  function generate(){
+  function hw(y){var u=(Y0-y)/TOT;
+    return u<=TT?Math.sqrt(RT*RT+Math.pow((TT-u)/TT,2)*(RB*RB-RT*RT)):Math.sqrt(RT*RT+Math.pow((u-TT)/(1-TT),2)*(RP*RP-RT*RT))}
+  function tw(y){return 16-8*((Y0-y)/TOT)}
 
-    E("base","rect",{"class":"soil",x:60,y:520,width:1080,height:80});
-    E("base","path",{"class":"ln",pathLength:1,d:"M60 520H1140"});
-    for(var k=-9;k<=9;k++){var x=CX+k*20,x2=CX+k*20*1.18;
-      E("cols","path",{"class":"col",pathLength:1,d:"M"+x2+" 520L"+x+" 460"},"--i:"+(k+9))}
+  // Foundation base plate (slab under the tower) — sits on the ground
+  E("base","rect",{"class":"plate",x:CX-180,y:512,width:360,height:8});
+  E("base","path",{"class":"plate-edge",d:"M"+(CX-180)+" 520H"+(CX+180)});
 
-    for(var i=0;i<N;i++){
-      var yb=Y0-i*H,yt=yb-H,xb=CX-hw(yb),xt=CX-hw(yt),t=(T0+i*DT).toFixed(2);
-      var L=[[xb,yb],[xt,yt],[xt+TH,yt],[xb+TH,yb]];
-      var OP=[[xb-7,yb],[xt-7,yt],[xt,yt],[xb,yb]];
-      var IP=[[xb+TH,yb],[xt+TH,yt],[xt+TH+7,yt],[xb+TH+7,yb]];
-      var dur=i==N-1?"1.9s":".95s", ft=(parseFloat(t)-.1).toFixed(2);
-      [0,1].forEach(function(m){
-        E("shell","polygon",{"class":"lw",points:pts(L,m)},"--t:"+t+"s");
-        var gg=document.createElementNS(NS,"g");gg.setAttribute("class","fw");gg.setAttribute("style","--t:"+ft+"s;--dur:"+dur);
-        [OP,IP].forEach(function(P){var pl=document.createElementNS(NS,"polygon");pl.setAttribute("points",pts(P,m));gg.appendChild(pl)});
-        var o=m?2*CX-(xt-7):(xt-7),o2=m?2*CX-(xt-30):(xt-30);
-        var n1=m?2*CX-(xt+TH+7):(xt+TH+7),n2=m?2*CX-(xt+TH+30):(xt+TH+30);
-        var pa=document.createElementNS(NS,"path");pa.setAttribute("d","M"+o+" "+yt+"H"+o2+"M"+o2+" "+yt+"V"+(yt-12)+"M"+n1+" "+yt+"H"+n2+"M"+n2+" "+yt+"V"+(yt-12));
-        gg.appendChild(pa);document.getElementById("forms").appendChild(gg);
-        var rt=(parseFloat(t)-.3).toFixed(2);
-        [3,TH-3].forEach(function(dx){var X=m?2*CX-(xt+dx):(xt+dx);
-          E("rebar","path",{"class":"rb",d:"M"+X+" "+yt+"V"+(yt-15)},"--t:"+rt+"s")});
+  // Ground + base line + 25m scale bar
+  E("base","rect",{"class":"soil",x:60,y:520,width:1080,height:80});
+  E("base","path",{"class":"ln",pathLength:1,d:"M60 520H1140"});
+  var sc=E("base","g",{"class":"scale"});
+  E(sc,"path",{d:"M60 556H"+(60+25*SC)+"M60 549V563M"+(60+25*SC)+" 549V563"});
+  E(sc,"text",{x:60+25*SC+8,y:560}).textContent="25 m";
+
+  // 19 column guides
+  for(var k=-9;k<=9;k++)
+    E("cols","path",{"class":"col",pathLength:1,d:"M"+(CX+k*15.5*1.18)+" 520L"+(CX+k*15.5)+" 460"},"--i:"+(k+9));
+
+  // 10 takts of climbing pour with variable wall thickness
+  for(var i=0;i<N;i++){
+    var yb=Y0-i*H,yt=yb-H,xb=CX-hw(yb),xt=CX-hw(yt),wb=tw(yb),wt=tw(yt),t=T0+i*DT,last=i===N-1;
+    var L=[[xb,yb],[xt,yt],[xt+wt,yt],[xb+wb,yb]],
+        OP=[[xb-7,yb],[xt-7,yt],[xt,yt],[xb,yb]],
+        IP=[[xb+wb,yb],[xt+wt,yt],[xt+wt+7,yt],[xb+wb+7,yb]];
+    [0,1].forEach(function(m){
+      var s=m?1:-1,tm=t+m*.06;
+      function X(x){return m?2*CX-x:x}
+      function P(a){return a.map(function(p){return X(p[0])+","+p[1]}).join(" ")}
+      // Concrete shell lift
+      E("shell","polygon",{"class":"lw",points:P(L)},"--t:"+tm.toFixed(2)+"s");
+      // Hatching overlay (cured texture) — appears 0.9s after pour
+      E("shell","polygon",{"class":"hatch",points:P(L)},"--t:"+(tm+.9).toFixed(2)+"s");
+
+      // Climbing formwork (red waling beam) — last takt strips out
+      var cls="fw"+(last?" last":""),
+          st=function(sx){return "--t:"+(tm-.25).toFixed(2)+"s;--h:"+H+"px;--sx:"+sx+";--dur:"+(DT+.55).toFixed(2)+"s"};
+      var go=E("forms","g",{"class":cls},st(s));
+      E(go,"polygon",{points:P(OP)});
+      E(go,"path",{d:"M"+X(xt-7)+" "+yt+"H"+X(xt-34)+"M"+X(xt-34)+" "+yt+"V"+(yt-12)+"M"+X(xt-7)+" "+(yt+16)+"L"+X(xt-34)+" "+yt});
+      var gi=E("forms","g",{"class":cls},st(-s));
+      E(gi,"polygon",{points:P(IP)});
+      E(gi,"path",{d:"M"+X(xt+wt+7)+" "+yt+"H"+X(xt+wt+34)+"M"+X(xt+wt+34)+" "+yt+"V"+(yt-12)+"M"+X(xt+wt+7)+" "+(yt+16)+"L"+X(xt+wt+34)+" "+yt});
+
+      // Vertical rebar starter bars
+      [3,wt-3].forEach(function(dx){
+        E("rebar","path",{"class":"rb",d:"M"+X(xt+dx)+" "+yt+"V"+(yt-15)},"--t:"+(tm-.3).toFixed(2)+"s");
       });
-      var tx=E("labs","text",{"class":"tk",x:60,y:160},"--t:"+t+"s");
-      tx.textContent="TAKT "+(i<9?"0":"")+(i+1)+" / "+N;
+    });
+
+    // Front face — closes the cross-section at the end, hides the gap behind the crane
+    var F=[[xb+wb,yb],[xt+wt,yt],[2*CX-(xt+wt),yt],[2*CX-(xb+wb),yb]];
+    E("shell","polygon",{"class":"front",points:[F[0][0]+","+F[0][1],F[1][0]+","+F[1][1],F[2][0]+","+F[2][1],F[3][0]+","+F[3][1]].join(" ")},
+      "--t:"+(t+1.2).toFixed(2)+"s");
+
+    // Takt counter
+    var tx=E("labs","text",{"class":"tk"+(last?" last":""),x:60,y:168},"--t:"+t.toFixed(2)+"s");
+    tx.textContent="TAKT "+(i<9?"0":"")+(i+1)+" / "+N;
+  }
+  // Progress bar track + bar
+  E("labs","rect",{"class":"trk",x:60,y:180,width:200,height:3});
+  E("labs","rect",{"class":"pb",x:60,y:180,width:200,height:3});
+
+  // Self-climbing crane — sits on top of the climbing formwork platform,
+  // rides upward as each new takt is poured. Mast is short (~70px above the
+  // platform) and self-supports via a small triangular A-frame. Anchored to
+  // the formwork yokes (visible as the red waling beams at the top of the pour).
+
+  // Crane removed
+
+  // Dimensions: H=150m vertical + Ø=76m horizontal at the throat
+  var dm=E("dims","g",{}),yTh=Y0-TT*TOT,rTh=hw(yTh);
+  E(dm,"path",{d:"M870 460V90M860 460H880M860 90H880"});
+  var mk=E(dm,"g",{"class":"mk"});E(mk,"path",{d:"M860 463l-14-7v14z"});
+  E(dm,"text",{"class":"late",x:890,y:280,transform:"rotate(90 890 280)","text-anchor":"middle",style:"transform-box:view-box"}).textContent="H = 150 m";
+  E(dm,"path",{"class":"or late",d:"M"+(CX-rTh)+" "+yTh+"H"+(CX+rTh+12)});
+  E(dm,"text",{"class":"ot late",x:CX+rTh+18,y:yTh+4}).textContent="Ø "+Math.round(2*rTh/SC)+" m";
+
+  // 3 chapter labels
+  [["a","01 · EINSCHALEN &amp; BEWEHREN"],["b","02 · BETONIEREN IM TAKT"],["c","03 · AUSSCHALEN"]].forEach(function(l){
+    E("labs","text",{"class":"lab "+l[0],x:60,y:130}).innerHTML=l[1];
+  });
+  }
+  window.__hfRegenerate = generate;
+  generate();
+})();
+</script>
+
+  
+
+  <script>
+  // Animation loop: replay the build every cycle.
+  // After each build (6.5s) + hold (3.5s) = 10s, clear the generated groups
+  // and re-run the generator to replay the build from scratch.
+  (function(){
+    var BUILD_MS = 6500;
+    var HOLD_MS  = 3500;
+    function replay(){
+      setTimeout(function(){
+        // Clear all generated children from the 7 generated groups
+        ['base','cols','shell','rebar','forms','dims','labs'].forEach(function(id){
+          var g = document.getElementById(id);
+          if (g) while (g.firstChild) g.removeChild(g.firstChild);
+        });
+        // Re-run the generator
+        if (typeof window.__hfRegenerate === 'function') {
+          window.__hfRegenerate();
+        }
+        replay();
+      }, BUILD_MS + HOLD_MS);
     }
-
-    var c=E("crane","g",{"class":"crane"}),top=40;
-    var mast=document.createElementNS(NS,"rect");mast.setAttribute("class","mast");mast.setAttribute("x",CX-8);mast.setAttribute("y",top);mast.setAttribute("width",16);mast.setAttribute("height",520-top);c.appendChild(mast);
-    var jg=document.createElementNS(NS,"g");jg.setAttribute("class","jib");
-    jg.innerHTML='<path d="M'+(CX-60)+' '+top+'H'+(CX+100)+'"/><path d="M'+CX+' '+(top-22)+'L'+(CX-60)+' '+top+'M'+CX+' '+(top-22)+'L'+(CX+100)+' '+top+'"/><rect class="cw" x="'+(CX-72)+'" y="'+(top-2)+'" width="14" height="16"/>'
-     +'<g class="swing"><path d="M'+(CX+92)+' '+top+'V'+(top+36)+'"/><path class="bk" d="M'+(CX+84)+' '+(top+36)+'h16l-3 16h-10z"/></g>';
-    c.appendChild(jg);
-
-    for(var k2=0;k2<4;k2++)E("plume","circle",{"class":"pl",cx:CX+(k2%2?10:-10),cy:84,r:20},"--k:"+k2);
-
-    var d=E("dims","g",{});
-    d.innerHTML='<path d="M1050 460V90M1040 460H1060M1040 90H1060"/><text x="1070" y="280" transform="rotate(90 1070 280)" text-anchor="middle" style="transform-box:view-box">H = 150 m</text>'
-     +'<path d="M'+(CX-hw(171))+' 171H'+(CX+hw(171))+'" stroke-dasharray="4 4" stroke="#AD0C1B"/><text x="'+CX+'" y="162" text-anchor="middle" fill="#AD0C1B">Ø 76 m</text>';
-
-    var l=[["a","01 · EINSCHALEN &amp; BEWEHREN",60],["b","02 · BETONIEREN IM TAKT",60],["c","03 · AUSSCHALEN",60]];
-    l.forEach(function(x){var t=E("labs","text",{"class":"lab "+x[0],x:x[2],y:130});t.innerHTML=x[1]});
+    replay();
   })();
   </script>
 
-  </body>
-</html>
