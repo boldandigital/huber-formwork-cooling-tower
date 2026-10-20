@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datenschutz — HUBER FORMWORK</title>
+  <meta name="description" content="Datenschutzerklärung der HUBER FORMWORK, Salem-Beuren. Information über die Erhebung, Verarbeitung und Nutzung personenbezogener Daten gemäß Art. 13 DSGVO.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    :root {
+      --hf-paper:        #FAFAF7;
+      --hf-paper-warm:   #F5F4EF;
+      --hf-paper-soft:   #F3F4E9;
+      --hf-mineral:      #EDEFDD;
+      --hf-red:          #AD0C1B;
+      --hf-red-soft:     #EBCFD2;
+      --hf-ink:          #1A1A18;
+      --hf-ink-2:        #2A2A27;
+      --hf-mid:          #5C5B53;
+      --hf-mid-2:        #6F6E65;
+      --hf-mid-3:        #8A897F;
+      --hf-line:         #DEDDD5;
+      --hf-line-soft:    #D3D4BE;
+      --hf-concrete:     #C9C7BB;
+
+      --type-display: clamp(2.5rem, 4.6vw, 4.875rem);
+      --type-h2:      clamp(2.625rem, 4.6vw, 5rem);
+      --type-h3:      clamp(1.5rem, 2.2vw, 2.125rem);
+      --type-body:    1.0625rem;
+      --type-mono:    0.6875rem;
+      --letter-mono:  0.15em;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: var(--type-body);
+      line-height: 1.55;
+      color: var(--hf-ink);
+      background: linear-gradient(180deg, var(--hf-paper) 0%, var(--hf-paper-warm) 100%);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Top bar — back link + wordmark */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 32px;
+      border-bottom: 1px solid var(--hf-line);
+      max-width: 1320px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .topbar__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--hf-ink);
+    }
+    .topbar__back-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      color: var(--hf-mid-2);
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topbar__back-label .accent-square {
+      width: 9px;
+      height: 9px;
+      background: var(--hf-red);
+    }
+    .topbar__back-label:hover { color: var(--hf-ink); }
+
+    .wordmark {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Archivo', sans-serif;
+      font-size: 1rem;
+      line-height: 1;
+      letter-spacing: 0.005em;
+    }
+    .wordmark--light { color: var(--hf-paper-warm); }
+    .wordmark__a { font-weight: 900; }
+    .wordmark__bar {
+      display: inline-block;
+      width: 3px;
+      height: 1.05em;
+      background: var(--hf-red);
+      margin: 0 0.42em;
+      flex-shrink: 0;
+    }
+    .wordmark__b { font-weight: 400; }
+    .wordmark--ink { color: var(--hf-ink); }
+
+    .brand-glyph {
+      display: block;
+      width: 100%;
+      max-width: 960px;
+      height: 18px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Page shell */
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 64px 32px 96px;
+    }
+
+    .page__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      color: var(--hf-mid-2);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .accent-square {
+      width: 9px;
+      height: 9px;
+      background: var(--hf-red);
+      flex-shrink: 0;
+    }
+
+    .page__title {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 800;
+      font-size: var(--type-h2);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--hf-ink);
+      margin: 0 0 18px 0;
+    }
+
+    .page__lede {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 400;
+      font-size: 1.125rem;
+      line-height: 1.55;
+      color: var(--hf-mid);
+      margin: 0 0 56px 0;
+      max-width: 640px;
+    }
+
+    /* Section card — paper-warm bg + 2px red top border */
+    .legal {
+      display: grid;
+      gap: 22px;
+    }
+
+    .legal__block {
+      background: var(--hf-paper-warm);
+      border-top: 2px solid var(--hf-red);
+      padding: 28px 32px 30px;
+      position: relative;
+    }
+
+    .legal__heading {
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+      margin: 0 0 14px 0;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      line-height: 1.2;
+      color: var(--hf-ink);
+      letter-spacing: -0.005em;
+    }
+    .legal__num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      color: var(--hf-mid-2);
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .legal__body {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--hf-ink-2);
+      margin: 0;
+    }
+    .legal__body p { margin: 0 0 10px 0; }
+    .legal__body p:last-child { margin-bottom: 0; }
+    .legal__body a {
+      color: var(--hf-ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 200ms ease;
+    }
+    .legal__body a:hover { border-bottom-color: var(--hf-red); }
+
+    .legal__dl {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 10px 24px;
+      margin: 0;
+    }
+    .legal__dt {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      text-transform: uppercase;
+      color: var(--hf-mid-2);
+    }
+    .legal__dd {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--hf-ink);
+      margin: 0;
+    }
+    .legal__dd a {
+      color: var(--hf-ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--hf-line);
+      transition: border-color 200ms ease;
+    }
+    .legal__dd a:hover { border-bottom-color: var(--hf-red); }
+
+    .legal__note {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 400;
+      letter-spacing: var(--letter-mono);
+      text-transform: uppercase;
+      color: var(--hf-mid-3);
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--hf-line);
+    }
+
+    /* Body + list pairing — a paragraph may be followed by a list, or a list by a paragraph */
+    .legal__body strong,
+    .legal__list strong {
+      font-weight: 700;
+      color: var(--hf-ink);
+    }
+    .legal__body--spaced { margin-top: 18px; }
+    .legal__list {
+      list-style: none;
+      margin: 14px 0 0 0;
+      padding: 0;
+    }
+    .legal__list li {
+      position: relative;
+      padding-left: 20px;
+      margin: 0 0 8px 0;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--hf-ink-2);
+    }
+    .legal__list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 10px;
+      height: 1px;
+      background: var(--hf-red);
+    }
+    .legal__list li:last-child { margin-bottom: 0; }
+    .legal__list + .legal__body { margin-top: 14px; }
+
+    /* Footer — same as index & impressum */
+    .foot {
+      background: var(--hf-ink);
+      color: var(--hf-paper-warm);
+      padding: 22px 32px;
+    }
+    .foot__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .foot__links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .foot__mark {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+    .foot__copy {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 400;
+      letter-spacing: var(--letter-mono);
+      color: var(--hf-mid-3);
+      text-transform: uppercase;
+    }
+    .foot__link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      color: var(--hf-paper-warm);
+      text-decoration: none;
+      text-transform: uppercase;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+      transition: border-color 200ms ease;
+    }
+    .foot__link:hover { border-bottom-color: var(--hf-red); }
+
+    @media (max-width: 720px) {
+      .topbar { padding: 18px 20px; }
+      .topbar__back-label span:not(.accent-square) { display: none; }
+      .brand-glyph { display: none; }
+      .page { padding: 40px 20px 64px; }
+      .legal__block { padding: 22px 22px 24px; }
+      .legal__heading { flex-direction: column; gap: 6px; }
+      .legal__dl { grid-template-columns: 1fr; gap: 4px 0; }
+      .legal__dt { margin-bottom: -4px; }
+      .foot__inner { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .foot__mark { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .foot__links { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+
+    @media print {
+      body { background: var(--hf-paper); }
+      .topbar { border-bottom: 1px solid var(--hf-line); }
+      .legal__block {
+        background: var(--hf-paper);
+        border-top: 2px solid var(--hf-red);
+        border-bottom: 1px solid var(--hf-line);
+        page-break-inside: avoid;
+      }
+      .foot { background: var(--hf-paper); color: var(--hf-ink); border-top: 1px solid var(--hf-line); }
+      .wordmark--light, .foot__link { color: var(--hf-ink); }
+    }
+    @page { size: A4; margin: 18mm; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="topbar__back" href="index.html" aria-label="Zurück zur Startseite">
+      <span class="topbar__back-label">
+        <span class="accent-square" aria-hidden="true"></span>
+        <span>← ZURÜCK</span>
+      </span>
+    </a>
+    <span class="wordmark wordmark--ink" aria-label="HUBER FORMWORK">
+      <span class="wordmark__a">HUBER</span><span class="wordmark__bar" aria-hidden="true"></span><span class="wordmark__b">FORMWORK</span>
+    </span>
+  </header>
+
+  <!-- Brand mark glyph row: 9 red squares across, baseline anchor -->
+  <svg class="brand-glyph" viewBox="0 0 920 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="0"   y="9" width="9" height="9" fill="#AD0C1B" />
+    <rect x="44"  y="9" width="9" height="9" fill="#AD0C1B" />
+    <rect x="88"  y="9" width="9" height="9" fill="#AD0C1B" />
+    <rect x="132" y="9" width="9" height="9" fill="#AD0C1B" />
+    <rect x="176" y="9" width="9" height="9" fill="#AD0C1B" />
+    <rect x="780" y="9" width="9" height="9" fill="#AD0C1B" />
+    <rect x="824" y="9" width="9" height="9" fill="#AD0C1B" />
+    <rect x="868" y="9" width="9" height="9" fill="#AD0C1B" />
+    <line x1="220" y1="13.5" x2="760" y2="13.5" stroke="#DEDDD5" stroke-width="1" />
+  </svg>
+
+  <main class="page" data-od-id="datenschutz">
+    <span class="page__eyebrow">
+      <span class="accent-square" aria-hidden="true"></span>
+      <span>Rechtliches</span>
+    </span>
+    <h1 class="page__title">Datenschutz&shy;erklärung</h1>
+    <p class="page__lede">Informationen zur Erhebung, Verarbeitung und Nutzung personenbezogener Daten gemäß Art. 13 DSGVO.</p>
+
+    <section class="legal">
+
+      <article class="legal__block" data-od-id="einleitung">
+        <h2 class="legal__heading">
+          <span class="legal__num">01</span>
+          <span>Einleitung</span>
+        </h2>
+        <div class="legal__body">
+          <p>Information über die Erhebung personenbezogener Daten und Kontaktdaten des Verantwortlichen. Wir freuen uns, dass Sie unsere Website besuchen und bedanken uns für Ihr Interesse.</p>
+          <p>Mit der folgenden Datenschutzerklärung möchten wir Sie darüber aufklären, welche Arten Ihrer personenbezogenen Daten (nachfolgend auch kurz als „Daten“ bezeichnet) wir zu welchen Zwecken und in welchem Umfang bei der Nutzung unserer Webseite verarbeiten. Die Datenschutzerklärung gilt für alle von uns durchgeführten Verarbeitungen personenbezogener Daten, sowohl im Rahmen der Erbringung unserer Leistungen als auch insbesondere auf unserer Webseite. Die verwendeten Begriffe sind nicht geschlechtsspezifisch.</p>
+        </div>
+        <p class="legal__note">Stand: Oktober 2026</p>
+      </article>
+
+      <article class="legal__block" data-od-id="verantwortlicher">
+        <h2 class="legal__heading">
+          <span class="legal__num">02</span>
+          <span>Verantwortlicher</span>
+        </h2>
+        <dl class="legal__dl">
+          <dt class="legal__dt">Anbieter</dt>
+          <dd class="legal__dd">A. Städele Bauunternehmen GmbH<br>HUBER FORMWORK INTERNATIONAL<br>Bächenstrasse 33 · 88682 Salem-Beuren</dd>
+          <dt class="legal__dt">Geschäftsführer</dt>
+          <dd class="legal__dd">Johannes Huber</dd>
+          <dt class="legal__dt">Telefon</dt>
+          <dd class="legal__dd"><a href="tel:+497517694522">0751 769 45 22</a></dd>
+          <dt class="legal__dt">E-Mail</dt>
+          <dd class="legal__dd"><a href="mailto:info@huberformwork-international.com">info@huberformwork-international.com</a></dd>
+          <dt class="legal__dt">Web</dt>
+          <dd class="legal__dd"><a href="https://www.huberformwork-international.com" rel="noopener">www.huberformwork-international.com</a></dd>
+        </dl>
+        <div class="legal__body legal__body--spaced">
+          <p>Der für die Verarbeitung von personenbezogenen Daten Verantwortliche ist diejenige natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten entscheidet.</p>
+          <p>Diese Website nutzt aus Sicherheitsgründen und zum Schutz der Übertragung personenbezogener Daten und anderer vertraulicher Inhalte eine SSL-bzw. TLS-Verschlüsselung. Sie können eine verschlüsselte Verbindung an der Zeichenfolge „https://“ und dem Schloss-Symbol in Ihrer Browserzeile erkennen.</p>
+        </div>
+      </article>
+
+      <article class="legal__block" data-od-id="datenerfassung">
+        <h2 class="legal__heading">
+          <span class="legal__num">03</span>
+          <span>Datenerfassung beim Besuch unserer Website</span>
+        </h2>
+        <div class="legal__body">
+          <p>Bei der bloß informatorischen Nutzung unserer Website, also wenn Sie uns keine Informationen übermitteln, erheben wir nur solche Daten, die Ihr Browser an unseren Server übermittelt (sog. „Server-Logfiles“). Wenn Sie unsere Website aufrufen, erheben wir die folgenden Daten, die für uns technisch erforderlich sind, um Ihnen die Website anzuzeigen:</p>
+        </div>
+        <ul class="legal__list">
+          <li>Unsere besuchte Website</li>
+          <li>Datum und Uhrzeit zum Zeitpunkt des Zugriffs</li>
+          <li>Menge der gesendeten Daten in Byte</li>
+          <li>Quelle/Verweis, von welchem Sie auf die Seite gelangten</li>
+          <li>Verwendeter Browser</li>
+          <li>Verwendetes Betriebssystem</li>
+          <li>Verwendete IP-Adresse (ggf. in anonymisierter Form)</li>
+        </ul>
+        <div class="legal__body">
+          <p>Die Verarbeitung erfolgt gemäß <strong>Art. 6 Abs. 1 lit. f DSGVO</strong> auf Basis unseres berechtigten Interesses an der Verbesserung der Stabilität und Funktionalität unserer Website. Eine Weitergabe oder anderweitige Verwendung der Daten findet nicht statt. Wir behalten uns allerdings vor, die Server-Logfiles nachträglich zu überprüfen, sollten konkrete Anhaltspunkte auf eine rechtswidrige Nutzung hinweisen.</p>
+          <p>Die Aufbewahrung richtet sich nach der Speicherpraxis unseres Hosting-Anbieters: Logfiles und temporäre Speicherdaten werden dort gewöhnlich nur wenige Tage, spätestens jedoch 90 Tage gespeichert — je nach konkretem Sicherheits- oder Betriebsbedarf. Eine darüber hinausgehende Speicherung der Logfiles findet nicht statt.</p>
+        </div>
+        <p class="legal__note">Löschung der Logfiles · spätestens 90 Tage</p>
+      </article>
+
+      <article class="legal__block" data-od-id="rechtsgrundlagen">
+        <h2 class="legal__heading">
+          <span class="legal__num">04</span>
+          <span>Maßgebliche Rechtsgrundlagen</span>
+        </h2>
+        <div class="legal__body">
+          <p>Im Folgenden teilen wir die Rechtsgrundlagen der Datenschutzgrundverordnung (DSGVO) mit, auf deren Basis wir die personenbezogenen Daten verarbeiten. Bitte beachten Sie, dass zusätzlich zu den Regelungen der DSGVO nationale Datenschutzgesetze gelten können.</p>
+        </div>
+        <ul class="legal__list">
+          <li><strong>Einwilligung</strong> (Art. 6 Abs. 1 S. 1 lit. a DSGVO) — Die betroffene Person hat ihre Einwilligung in die Verarbeitung der sie betreffenden personenbezogenen Daten für einen spezifischen Zweck oder mehrere bestimmte Zwecke gegeben.</li>
+          <li><strong>Vertragserfüllung und vorvertragliche Anfragen</strong> (Art. 6 Abs. 1 S. 1 lit. b DSGVO) — Die Verarbeitung ist für die Erfüllung eines Vertrags, dessen Vertragspartei die betroffene Person ist, oder zur Durchführung vorvertraglicher Maßnahmen erforderlich, die auf Anfrage der betroffenen Person erfolgen.</li>
+          <li><strong>Berechtigte Interessen</strong> (Art. 6 Abs. 1 S. 1 lit. f DSGVO) — Die Verarbeitung ist zur Wahrung der berechtigten Interessen des Verantwortlichen oder eines Dritten erforderlich, sofern nicht die Interessen oder Grundrechte und Grundfreiheiten der betroffenen Person, die den Schutz personenbezogener Daten erfordern, überwiegen.</li>
+        </ul>
+        <div class="legal__body">
+          <p>Zusätzlich zu den Datenschutzregelungen der Datenschutz-Grundverordnung gelten nationale Regelungen zum Datenschutz in Deutschland.</p>
+        </div>
+      </article>
+
+      <article class="legal__block" data-od-id="sicherheitsmassnahmen">
+        <h2 class="legal__heading">
+          <span class="legal__num">05</span>
+          <span>Sicherheitsmaßnahmen</span>
+        </h2>
+        <div class="legal__body">
+          <p>Wir treffen nach Maßgabe der gesetzlichen Vorgaben unter Berücksichtigung des Stands der Technik, der Implementierungskosten und der Art, des Umfangs, der Umstände und der Zwecke der Verarbeitung sowie der unterschiedlichen Eintrittswahrscheinlichkeiten und des Ausmaßes der Bedrohung der Rechte und Freiheiten natürlicher Personen geeignete technische und organisatorische Maßnahmen, um ein dem Risiko angemessenes Schutzniveau zu gewährleisten.</p>
+          <p>Zu den Maßnahmen gehören insbesondere die Sicherung der Vertraulichkeit, Integrität und Verfügbarkeit von Daten durch Kontrolle des physischen und elektronischen Zugangs zu den Daten sowie des sie betreffenden Zugriffs, der Eingabe, der Weitergabe, der Sicherung der Verfügbarkeit und ihrer Trennung. Des Weiteren haben wir Verfahren eingerichtet, die eine Wahrnehmung von Betroffenenrechten, die Löschung von Daten und Reaktionen auf die Gefährdung der Daten gewährleisten. Ferner berücksichtigen wir den Schutz personenbezogener Daten bereits bei der Entwicklung bzw. Auswahl von Hardware, Software sowie Verfahren entsprechend dem Prinzip des Datenschutzes, durch Technikgestaltung und durch datenschutzfreundliche Voreinstellungen.</p>
+        </div>
+      </article>
+
+      <article class="legal__block" data-od-id="drittlaender">
+        <h2 class="legal__heading">
+          <span class="legal__num">06</span>
+          <span>Datenverarbeitung in Drittländern</span>
+        </h2>
+        <div class="legal__body">
+          <p>Sofern wir Daten in einem Drittland (d. h. außerhalb der Europäischen Union (EU), des Europäischen Wirtschaftsraums (EWR)) verarbeiten oder die Verarbeitung im Rahmen der Inanspruchnahme von Diensten Dritter stattfindet, erfolgt dies nur im Einklang mit den gesetzlichen Vorgaben.</p>
+          <p>Vorbehaltlich ausdrücklicher Einwilligungen oder vertraglich oder gesetzlich erforderlicher Übermittlung verarbeiten oder lassen wir die Daten nur in Drittländern mit einem anerkannten Datenschutzniveau oder auf Grundlage besonderer Garantien, wie z. B. vertraglicher Verpflichtung durch sogenannte Standardvertragsklauseln der EU-Kommission, des Vorliegens von Zertifizierungen oder verbindlicher interner Datenschutzvorschriften, verarbeiten.</p>
+        </div>
+      </article>
+
+      <article class="legal__block" data-od-id="cookies">
+        <h2 class="legal__heading">
+          <span class="legal__num">07</span>
+          <span>Einsatz von Cookies</span>
+        </h2>
+        <div class="legal__body">
+          <p>Diese Website setzt keine Cookies. Es werden weder Sitzungs-Cookies noch persistente Cookies gesetzt, und es findet keine Speicherung von Daten im LocalStorage oder im SessionStorage Ihres Browsers statt. Ein Cookie-Consent-Tool ist deshalb nicht erforderlich, weil keine einwilligungspflichtigen Dienste zum Einsatz kommen.</p>
+          <p>Es kommen keine Analyse-Werkzeuge, kein Session-Recording, keine Drittanbieter-Tracker und keine Reichweitenmessung zum Einsatz. Eine Profilbildung findet nicht statt.</p>
+          <p>Sie können Ihren Browser jederzeit so einstellen, dass Cookies generell blockiert werden. Bei Nichtannahme von Cookies kann die Funktionalität der Website eingeschränkt sein.</p>
+        </div>
+        <p class="legal__note">Keine Cookies · Keine Analyse · Kein Tracking</p>
+      </article>
+
+      <article class="legal__block" data-od-id="kontaktaufnahme">
+        <h2 class="legal__heading">
+          <span class="legal__num">08</span>
+          <span>Kontaktaufnahme</span>
+        </h2>
+        <div class="legal__body">
+          <p>Ein Kontaktformular ist auf dieser Website nicht vorhanden. Anfragen nehmen wir per Telefon, per E-Mail oder per Post entgegen. Im Rahmen der Kontaktaufnahme werden — ausschließlich zum Zweck der Bearbeitung und Beantwortung Ihres Anliegens und nur im dafür erforderlichen Umfang — personenbezogene Daten verarbeitet. Rechtsgrundlage für die Verarbeitung dieser Daten ist unser berechtigtes Interesse an der Beantwortung Ihres Anliegens gemäß Art. 6 Abs. 1 lit. f DSGVO. Zielt Ihre Kontaktierung auf einen Vertrag ab, so ist zusätzliche Rechtsgrundlage für die Verarbeitung Art. 6 Abs. 1 lit. b DSGVO.</p>
+          <p>Ihre Daten werden gelöscht, wenn sich aus den Umständen entnehmen lässt, dass der betroffene Sachverhalt abschließend geklärt ist und sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
+        </div>
+        <p class="legal__note">Telefon · E-Mail · Post</p>
+      </article>
+
+      <article class="legal__block" data-od-id="hosting">
+        <h2 class="legal__heading">
+          <span class="legal__num">09</span>
+          <span>Bereitstellung des Onlineangebotes und Webhosting</span>
+        </h2>
+        <div class="legal__body">
+          <p>Um unser Onlineangebot sicher und effizient bereitstellen zu können, nehmen wir die Leistungen von einem Webhosting-Anbieter in Anspruch, von dessen Servern das Onlineangebot abgerufen werden kann. Zu diesen Zwecken können wir Infrastruktur- und Plattformdienstleistungen, Rechenkapazität, Speicherplatz sowie Sicherheitsleistungen und technische Wartungsleistungen in Anspruch nehmen.</p>
+          <p><strong>Unser Hosting-Anbieter:</strong> Die Website und das zugehörige E-Mail-Postfach werden bei der <strong>STRATO GmbH</strong>, Otto-Ostrowski-Straße 7, 10249 Berlin, betrieben (Handelsregister Berlin-Charlottenburg, HRB 270570 B). STRATO tritt hierbei als Auftragsverarbeiter nach Art. 4 Nr. 8 DSGVO auf; die Verarbeitung im Auftrag ist durch eine Auftragsverarbeitungsvereinbarung zwischen uns und dem Anbieter geregelt. Die Server stehen in einem Rechenzentrum in Deutschland, sodass für das Hosting keine Verarbeitung in einem Drittland stattfindet.</p>
+          <p>Zu den im Rahmen der Bereitstellung des Hostingangebotes verarbeiteten Daten können alle Angaben gehören, die im Rahmen der Nutzung und der Kommunikation anfallen. Hierzu gehören regelmäßig die IP-Adresse, die notwendig ist, um die Inhalte von Onlineangeboten an Browser ausliefern zu können, sowie die innerhalb unseres Onlineangebotes getätigten Eingaben. Eine Weitergabe dieser Daten an Dritte findet nicht statt, sofern dies nicht zur Vertragserfüllung erforderlich ist oder einer gesetzlichen Verpflichtung unterliegt.</p>
+          <p><strong>E-Mail-Versand und -Hosting:</strong> Die von uns in Anspruch genannten Webhosting-Leistungen umfassen ebenfalls den Versand, den Empfang sowie die Speicherung von E-Mails. Zu diesen Zwecken werden die Adressen der Empfänger sowie Absender als auch weitere Informationen betreffend den E-Mailversand sowie die Inhalte der jeweiligen E-Mails verarbeitet. Die vorgenannten Daten können ferner zu Zwecken der Erkennung von SPAM verarbeitet werden. Wir bitten darum, zu beachten, dass E-Mails im Internet grundsätzlich nicht verschlüsselt versendet werden. Im Regelfall werden E-Mails zwar auf dem Transportweg verschlüsselt, aber (sofern kein sogenanntes Ende-zu-Ende-Verschlüsselungsverfahren eingesetzt wird) nicht auf den Servern, von denen sie abgesendet und empfangen werden. Wir können daher für den Übertragungsweg der E-Mails zwischen dem Absender und dem Empfang auf unserem Server keine Verantwortung übernehmen.</p>
+        </div>
+        <p class="legal__note">Hosting-Anbieter: STRATO GmbH · Berlin</p>
+      </article>
+
+      <article class="legal__block" data-od-id="externe-dienste">
+        <h2 class="legal__heading">
+          <span class="legal__num">10</span>
+          <span>Externe Dienste &amp; Drittanbieter</span>
+        </h2>
+        <div class="legal__body">
+          <p><strong>Google Fonts (Schriftarten):</strong> Die Schriftarten dieser Website (Archivo, IBM Plex Mono) werden über die Google-Fonts-API von Google Ireland Limited, Gordon House, 4 Barrow St, Dublin, D04 E5W5, Irland, bezogen. Dabei wird Ihre IP-Adresse an Google übermittelt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer typografisch konsistenten Darstellung). Für Datenübermittlungen in die USA hat sich der Anbieter dem EU-US-Datenschutzrahmen (EU-US Data Privacy Framework) angeschlossen, das auf Basis eines Angemessenheitsbeschlusses der Europäischen Kommission die Einhaltung des europäischen Datenschutzniveaus sicherstellt.</p>
+          <p><strong>Google Maps (Verweis):</strong> Auf dieser Website ist kein Kartendienst eingebettet. Im Kontaktbereich verlinken wir lediglich auf Google Maps. Erst wenn Sie diesen Link anklicken, verlassen Sie unsere Website und werden Daten an Google übermittelt. Eine Erhebung von Nutzungsdaten durch Google Maps auf unserer Website findet nicht statt.</p>
+          <p>Darüber hinaus sind derzeit keine externen Schriften, Schriftfamilien, Analyse-Dienste, eingebetteten Inhalte, Chat-Programme, Zahlungsdienstleister oder sonstigen Drittanbieter eingebunden, die personenbezogene Daten eigenständig verarbeiten. Sollten in Zukunft weitere Dienste hinzukommen, wird diese Erklärung aktualisiert und — soweit erforderlich — eine Einwilligung eingeholt.</p>
+        </div>
+        <p class="legal__note">Ein Drittanbieter: Google Fonts</p>
+      </article>
+
+      <article class="legal__block" data-od-id="rechte">
+        <h2 class="legal__heading">
+          <span class="legal__num">11</span>
+          <span>Ihre Rechte als Betroffene/r</span>
+        </h2>
+        <div class="legal__body">
+          <p>Das geltende Datenschutzrecht gewährt Ihnen gegenüber dem Verantwortlichen hinsichtlich der Verarbeitung Ihrer personenbezogenen Daten die nachstehenden Betroffenenrechte (Auskunfts- und Interventionsrechte), wobei für die jeweilige Ausübung auf die angeführte Rechtsgrundlage verwiesen wird:</p>
+        </div>
+        <ul class="legal__list">
+          <li>Auskunftsrecht gemäß Art. 15 DSGVO</li>
+          <li>Recht auf Berichtigung gemäß Art. 16 DSGVO</li>
+          <li>Recht auf Löschung gemäß Art. 17 DSGVO</li>
+          <li>Recht auf Einschränkung der Verarbeitung gemäß Art. 18 DSGVO</li>
+          <li>Recht auf Unterrichtung gemäß Art. 19 DSGVO</li>
+          <li>Recht auf Datenübertragbarkeit gemäß Art. 20 DSGVO</li>
+          <li>Recht auf Widerruf erteilter Einwilligungen gemäß Art. 7 Abs. 3 DSGVO</li>
+          <li>Recht auf Beschwerde gemäß Art. 77 DSGVO</li>
+        </ul>
+        <div class="legal__body">
+          <p>Eine erteilte Einwilligung kann jederzeit mit Wirkung für die Zukunft widerrufen werden. Darüber hinaus besteht ein Beschwerderecht bei der zuständigen Aufsichtsbehörde. Zuständig ist der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg, Königstraße 10a, 70173 Stuttgart.</p>
+        </div>
+      </article>
+
+      <article class="legal__block" data-od-id="widerspruch">
+        <h2 class="legal__heading">
+          <span class="legal__num">12</span>
+          <span>Widerspruchsrecht</span>
+        </h2>
+        <div class="legal__body">
+          <p>Wenn wir im Rahmen einer Interessenabwägung Ihre personenbezogenen Daten aufgrund unseres überwiegenden berechtigten Interesses verarbeiten, haben Sie das jederzeitige Recht, aus Gründen, die sich aus Ihrer besonderen Situation ergeben, gegen diese Verarbeitung Widerspruch mit Wirkung für die Zukunft einzulegen.</p>
+          <p>Machen Sie von Ihrem Widerspruchsrecht Gebrauch, enden wir die Verarbeitung der betroffenen Daten. Eine Weiterverarbeitung bleibt aber vorbehalten, wenn wir zwingende schutzwürdige Gründe für die Verarbeitung nachweisen können, die Ihre Interessen, Grundrechte und Grundfreiheiten überwiegen — oder wenn die Verarbeitung der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen dient.</p>
+          <p>Eine Direktwerbung betreiben wir nicht, weshalb ein gesondertes Widerspruchsrecht gegen Direktwerbung hier nicht einschlägig ist.</p>
+        </div>
+      </article>
+
+      <article class="legal__block" data-od-id="speicherdauer">
+        <h2 class="legal__heading">
+          <span class="legal__num">13</span>
+          <span>Dauer der Speicherung personenbezogener Daten</span>
+        </h2>
+        <div class="legal__body">
+          <p>Die Dauer der Speicherung von personenbezogenen Daten bemisst sich anhand der jeweiligen Rechtsgrundlage, am Verarbeitungszweck und — sofern einschlägig — zusätzlich anhand der jeweiligen gesetzlichen Aufbewahrungsfrist (z. B. handels- und steuerrechtliche Aufbewahrungsfristen).</p>
+          <p>Bei der Verarbeitung von personenbezogenen Daten auf Grundlage einer ausdrücklichen Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO werden diese Daten so lange gespeichert, bis der Betroffene seine Einwilligung widerruft. Existieren gesetzliche Aufbewahrungsfristen für Daten, die im Rahmen rechtsgeschäftlicher bzw. rechtsgeschäftsähnlicher Verpflichtungen auf der Grundlage von Art. 6 Abs. 1 lit. b DSGVO verarbeitet werden, werden diese Daten nach Ablauf der Aufbewahrungsfristen routinemäßig gelöscht, sofern sie nicht mehr zur Vertragserfüllung oder Vertragsanbahnung erforderlich sind und/oder unsererseits kein berechtigtes Interesse an der Weiterspeicherung fortbesteht.</p>
+          <p>Bei der Verarbeitung von personenbezogenen Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO werden diese Daten so lange gespeichert, bis der Betroffene sein Widerspruchsrecht nach Art. 21 Abs. 1 DSGVO ausübt, es sei denn, wir können zwingende schutzwürdige Gründe für die Verarbeitung nachweisen, die die Interessen, Rechte und Freiheiten der betroffenen Person überwiegen, oder die Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen.</p>
+          <p>Sofern sich aus den sonstigen Informationen dieser Erklärung über spezifische Verarbeitungssituationen nichts anderes ergibt, werden gespeicherte personenbezogene Daten im Übrigen dann gelöscht, wenn sie für die Zwecke, für die sie erhoben oder auf sonstige Weise verarbeitet wurden, nicht mehr notwendig sind.</p>
+        </div>
+      </article>
+
+      <article class="legal__block" data-od-id="begriffsdefinitionen">
+        <h2 class="legal__heading">
+          <span class="legal__num">14</span>
+          <span>Begriffsdefinitionen</span>
+        </h2>
+        <div class="legal__body">
+          <p>In diesem Abschnitt erhalten Sie eine Übersicht über die in dieser Datenschutzerklärung verwendeten Begrifflichkeiten. Viele der Begriffe sind dem Gesetz entnommen und vor allem in Art. 4 DSGVO definiert. Die gesetzlichen Definitionen sind verbindlich. Die nachfolgenden Erläuterungen sollen dagegen vor allem dem Verständnis dienen. Die Begriffe sind alphabetisch sortiert.</p>
+        </div>
+        <ul class="legal__list">
+          <li><strong>Personenbezogene Daten:</strong> Alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person (die „betroffene Person“) beziehen; als identifizierbar wird eine natürliche Person angesehen, die direkt oder indirekt, insbesondere mittels Zuordnung zu einer Kennung wie einem Namen, zu einer Kennnummer, zu Standortdaten, zu einer Online-Kennung (z. B. Cookie) oder zu einem oder mehreren besonderen Merkmalen identifiziert werden kann, die Ausdruck der physischen, physiologischen, genetischen, psychischen, wirtschaftlichen, kulturellen oder sozialen Identität dieser natürlichen Person sind.</li>
+          <li><strong>Profiling:</strong> Jede Art der automatisierten Verarbeitung personenbezogener Daten, die darin besteht, dass diese personenbezogenen Daten verwendet werden, um bestimmte persönliche Aspekte, die sich auf eine natürliche Person beziehen, zu analysieren, zu bewerten oder vorherzusagen. Auf dieser Website findet keine Profilierung statt.</li>
+          <li><strong>Tracking:</strong> Die Nachverfolgung des Verhaltens von Nutzern über mehrere Onlineangebote hinweg, regelmäßig über Cookies oder Server der Trackinganbieter. Auf dieser Website findet kein Tracking statt.</li>
+          <li><strong>Verantwortlicher:</strong> Die natürliche oder juristische Person, Behörde, Einrichtung oder andere Stelle, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten entscheidet.</li>
+          <li><strong>Verarbeitung:</strong> Jeder mit oder ohne Hilfe automatisierter Verfahren ausgeführte Vorgang oder jede solche Vorgangsreihe im Zusammenhang mit personenbezogenen Daten. Der Begriff reicht weit und umfasst praktisch jeden Umgang mit Daten, sei es das Erheben, das Auswerten, das Speichern, das Übermitteln oder das Löschen.</li>
+        </ul>
+      </article>
+
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <div class="foot__mark">
+        <span class="wordmark wordmark--light">
+          <span class="wordmark__a">HUBER</span><span class="wordmark__bar" aria-hidden="true"></span><span class="wordmark__b">FORMWORK</span>
+        </span>
+        <span class="foot__copy">© 2026 HUBER FORMWORK</span>
+      </div>
+      <div class="foot__links">
+        <a class="foot__link" href="index.html">← STARTSEITE</a>
+        <a class="foot__link" href="impressum.html">Impressum ↗</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

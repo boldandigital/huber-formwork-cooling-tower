@@ -232,6 +232,13 @@
       color: var(--hf-ink);
       margin: 0;
     }
+    .legal__dd a {
+      color: var(--hf-ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--hf-line);
+      transition: border-color 200ms ease;
+    }
+    .legal__dd a:hover { border-bottom-color: var(--hf-red); }
 
     /* Footer — same as index */
     .foot {
@@ -246,6 +253,11 @@
       gap: 24px;
       max-width: 1320px;
       margin: 0 auto;
+    }
+    .foot__links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
     }
     .foot__mark {
       display: flex;
@@ -286,6 +298,7 @@
       .legal__dt { margin-bottom: -4px; }
       .foot__inner { flex-direction: column; align-items: flex-start; gap: 14px; }
       .foot__mark { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .foot__links { flex-direction: column; align-items: flex-start; gap: 10px; }
     }
 
     @media print {
@@ -432,7 +445,10 @@
         </span>
         <span class="foot__copy">© 2026 HUBER FORMWORK</span>
       </div>
-      <a class="foot__link" href="index.html">← STARTSEITE</a>
+      <div class="foot__links">
+        <a class="foot__link" href="index.html">← STARTSEITE</a>
+        <a class="foot__link" href="datenschutz.html">Datenschutz ↗</a>
+      </div>
     </div>
   </footer>
 </body>

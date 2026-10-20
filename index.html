@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HUBER FORMWORK — Kontakt · Salem-Beuren</title>
-  <meta name="description" content="HUBER FORMWORK, Schalungsbau aus Salem-Beuren (Bodensee). Kletterschalung, Sichtbeton, Kletterschalung Kühlturm. Sprechen Sie mit uns über Ihr Projekt." />
+  <meta name="description" content="HUBER FORMWORK, Schalungsbau aus Salem-Beuren am Bodensee. Kletterschalung, Deckenschalung, Sichtbeton. Sprechen Sie mit uns über Ihr Projekt." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -129,11 +129,11 @@
       display: block;
       flex-shrink: 1;
     }
-    /* Kühlturm (cooling tower) — 10-takt Kletterschalung pour sequence.
+    /* Kühlturm (cooling tower) — 10-Betonlagen Kletterschalung pour sequence.
        Editorial construction-drawing style: dark ink line work on warm paper,
        red signal-accent for the formwork yokes, swing bucket, and dimensions.
        Variable wall thickness (taper), 25m scale bar, progress bar, hatching
-       overlay after cure, last-takt strip-out animation, mark arrow climbing
+       overlay after cure, last-lift strip-out animation, mark arrow climbing
        with the crane, refined crane with zigzag trusses. */
     .hf-hero__svg .hf-grid { fill: url(#hfGrid); }
     .hf-hero__svg .ln {
@@ -186,7 +186,7 @@
     }
     .hf-hero__svg .fw polygon { fill: rgba(173, 12, 27, 0.18); stroke: var(--hf-red); stroke-width: 1.8; }
     .hf-hero__svg .fw path    { stroke: var(--hf-red); stroke-width: 2; fill: none; stroke-linecap: round; }
-    /* Last takt: stays on, then strips out (translateY) at 6.7s */
+    /* Last lift: stays on, then strips out (translateY) at 6.7s */
     .hf-hero__svg .fw.last { animation: hf-fwin 0.35s ease-out var(--t) forwards, hf-strip 1s ease-in 6.7s forwards; }
 
     /* Rebar starter bars (visible briefly during the pour) */
@@ -231,13 +231,16 @@
     .hf-hero__svg .lab.b { animation: hf-lab 4.6s ease 1.9s forwards; }
     .hf-hero__svg .lab.c { animation: hf-lab 1.7s ease 6.5s forwards; }
 
-    /* Takt counter (TAKT 01 / 10, etc.) */
+    /* Betonlage readout — one continuous line, stepped by the pour clock.
+       The value is driven by each lift's own hf-pour animationstart event
+       (see generate()), so the number always names the lift being poured. */
     .hf-hero__svg .tk {
       fill: var(--hf-mid); font-size: 14px; letter-spacing: 0.15em;
       opacity: 0;
-      animation: hf-tk 0.42s linear var(--t) forwards;
+      animation: hf-in 0.3s ease var(--t0, 1.9s) forwards;
     }
-    .hf-hero__svg .tk.last { animation: hf-in 0.2s linear var(--t) forwards; }
+    .hf-hero__svg .tk-num { fill: var(--hf-mid); }
+    .hf-hero__svg .tk-num.is-flip { animation: hf-flip 0.18s ease-out; }
     .hf-hero__svg .trk { fill: rgba(26, 26, 24, 0.12); }
     .hf-hero__svg .pb {
       fill: var(--hf-red); transform-origin: left; transform: scaleX(0);
@@ -420,6 +423,11 @@
       max-width: 1320px;
       margin: 0 auto;
     }
+    .foot__links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
     .foot__mark {
       display: flex;
       align-items: center;
@@ -488,6 +496,7 @@
       .foot { padding: 14px 18px; }
       .foot__inner { flex-direction: column; align-items: flex-start; gap: 10px; }
       .foot__mark { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .foot__links { flex-direction: column; align-items: flex-start; gap: 4px; }
       .foot__link {
         font-size: 12px;
         font-weight: 700;
@@ -536,7 +545,7 @@
     }
 
     /* Keyframes — refined v3 formwork sequence */
-        /* Kühlturm (Kletterschalung) — pour, formwork, crane, steam, takt */
+        /* Kühlturm (Kletterschalung) — pour, formwork, crane, steam, Betonlage */
     @keyframes hf-draw     { to { stroke-dashoffset: 0; } }
     @keyframes hf-in       { to { opacity: 1; } }
     @keyframes hf-pour     { to { transform: scaleY(1); } }
@@ -548,7 +557,7 @@
     @keyframes hf-rbk      { 0% { opacity: 0; } 20% { opacity: 0.9; } 75% { opacity: 0.9; } 100% { opacity: 0; } }
             @keyframes hf-mk       { from { transform: translateY(0); } to { transform: translateY(-370px); } } to { transform: translateY(-333px); } }
             @keyframes hf-lab      { 0% { opacity: 0; transform: translateX(-10px); } 12% { opacity: 1; transform: none; } 88% { opacity: 1; } 100% { opacity: 0; } }
-    @keyframes hf-tk       { 0%, 97% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes hf-flip     { 0% { fill: #AD0C1B; } 100% { fill: #5C5B53; } }
     @keyframes hf-sx       { to { transform: scaleX(1); } }
         @keyframes hf-out      { to { opacity: 0; } }
     @keyframes hf-cycle {
@@ -599,6 +608,7 @@
       .hf-hero__svg .jib { transform: translateY(0); }
       .hf-hero__svg .pl, .hf-hero__svg .rb { opacity: 0; }
       .hf-hero__svg .lab.c, .hf-hero__svg .dims { opacity: 1; }
+      .hf-hero__svg .tk { opacity: 1; }
       .hero__tag { opacity: 1; position: static; text-align: center; padding: 24px; }
     }
 
@@ -677,15 +687,18 @@
   <footer class="foot">
     <div class="foot__inner">
       <span class="foot__copy">© 2026 HUBER FORMWORK INTERNATIONAL · BÄCHENSTRASSE 33 · 88682 SALEM-BEUREN</span>
-      <a href="impressum.html" class="foot__link">Impressum ↗</a>
+      <div class="foot__links">
+        <a href="datenschutz.html" class="foot__link">Datenschutz ↗</a>
+        <a href="impressum.html" class="foot__link">Impressum ↗</a>
+      </div>
     </div>
   </footer>
 
 
   <script>
-/* Kühlturm (cooling tower) — 10-takt Kletterschalung sequence.
+/* Kühlturm (cooling tower) — 10-Betonlagen Kletterschalung sequence.
    v2: variable wall thickness (taper), 25m scale bar, progress bar,
-   hatching overlay after cure, last-takt strip-out animation, mark arrow
+   hatching overlay after cure, last-lift strip-out animation, mark arrow
    climbing with the crane, refined crane with zigzag trusses. */
 (function(){
   var NS="http://www.w3.org/2000/svg",CX=600,N=10,H=37,Y0=460,T0=1.9,DT=.42,
@@ -712,22 +725,54 @@
   for(var k=-9;k<=9;k++)
     E("cols","path",{"class":"col",pathLength:1,d:"M"+(CX+k*15.5*1.18)+" 520L"+(CX+k*15.5)+" 460"},"--i:"+(k+9));
 
-  // 10 takts of climbing pour with variable wall thickness
+  // Betonlage readout — one continuous line. The number is stepped by the
+  // concrete itself (animationstart on hf-pour), so it always names the lift
+  // that is being poured right now. --t0 makes it fade in with the first lift.
+  var lage=E("labs","text",{"class":"tk",x:60,y:168},"--t0:"+T0+"s");
+  lage.appendChild(document.createTextNode("BETONLAGE "));
+  var lageNum=E(lage,"tspan",{"class":"tk-num"});
+  lage.appendChild(document.createTextNode(" / "+N));
+  var REDUCED=!!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var lageCur=1;
+  window.__hfLage={num:lageNum,cur:function(){return lageCur;},reduced:REDUCED};
+  function lageStep(idx){
+    if(REDUCED) return;
+    var s=(idx<10?"0":"")+idx;
+    if(lageCur===idx) return;
+    lageCur=idx;
+    lageNum.textContent=s;
+    lageNum.classList.remove("is-flip");
+    void lageNum.getBoundingClientRect();
+    lageNum.classList.add("is-flip");
+  }
+  function lageBind(idx,el){
+    el.addEventListener("animationstart",function(ev){
+      if(ev.animationName==="hf-pour") lageStep(idx);
+    });
+  }
+  // Reduced motion collapses every delay to 0, so all ten lifts would fire at
+  // once — show the finished state instead of stepping through them.
+  if(REDUCED) lageNum.textContent="10";
+  else lageNum.textContent="01";
+
+  // 10 Betonlagen of climbing pour with variable wall thickness
   for(var i=0;i<N;i++){
     var yb=Y0-i*H,yt=yb-H,xb=CX-hw(yb),xt=CX-hw(yt),wb=tw(yb),wt=tw(yt),t=T0+i*DT,last=i===N-1;
     var L=[[xb,yb],[xt,yt],[xt+wt,yt],[xb+wb,yb]],
         OP=[[xb-7,yb],[xt-7,yt],[xt,yt],[xb,yb]],
         IP=[[xb+wb,yb],[xt+wt,yt],[xt+wt+7,yt],[xb+wb+7,yb]];
+    var lwLead=null;
     [0,1].forEach(function(m){
       var s=m?1:-1,tm=t+m*.06;
       function X(x){return m?2*CX-x:x}
       function P(a){return a.map(function(p){return X(p[0])+","+p[1]}).join(" ")}
       // Concrete shell lift
-      E("shell","polygon",{"class":"lw",points:P(L)},"--t:"+tm.toFixed(2)+"s");
+      var lw=E("shell","polygon",{"class":"lw",points:P(L)},"--t:"+tm.toFixed(2)+"s");
+      if(m===0) lwLead=lw;
       // Hatching overlay (cured texture) — appears 0.9s after pour
       E("shell","polygon",{"class":"hatch",points:P(L)},"--t:"+(tm+.9).toFixed(2)+"s");
 
-      // Climbing formwork (red waling beam) — last takt strips out
+      // Climbing formwork (red waling beam) — last lift strips out
       var cls="fw"+(last?" last":""),
           st=function(sx){return "--t:"+(tm-.25).toFixed(2)+"s;--h:"+H+"px;--sx:"+sx+";--dur:"+(DT+.55).toFixed(2)+"s"};
       var go=E("forms","g",{"class":cls},st(s));
@@ -748,16 +793,16 @@
     E("shell","polygon",{"class":"front",points:[F[0][0]+","+F[0][1],F[1][0]+","+F[1][1],F[2][0]+","+F[2][1],F[3][0]+","+F[3][1]].join(" ")},
       "--t:"+(t+1.2).toFixed(2)+"s");
 
-    // Takt counter
-    var tx=E("labs","text",{"class":"tk"+(last?" last":""),x:60,y:168},"--t:"+t.toFixed(2)+"s");
-    tx.textContent="TAKT "+(i<9?"0":"")+(i+1)+" / "+N;
+    // Bind this lift's concrete to the readout — the number steps when
+    // its pour actually starts, so label and concrete can never drift.
+    if(lwLead) lageBind(i+1,lwLead);
   }
   // Progress bar track + bar
   E("labs","rect",{"class":"trk",x:60,y:180,width:200,height:3});
   E("labs","rect",{"class":"pb",x:60,y:180,width:200,height:3});
 
   // Self-climbing crane — sits on top of the climbing formwork platform,
-  // rides upward as each new takt is poured. Mast is short (~70px above the
+  // rides upward as each new lift is poured. Mast is short (~70px above the
   // platform) and self-supports via a small triangular A-frame. Anchored to
   // the formwork yokes (visible as the red waling beams at the top of the pour).
 
@@ -772,12 +817,23 @@
   E(dm,"text",{"class":"ot late",x:CX+rTh+18,y:yTh+4}).textContent="Ø "+Math.round(2*rTh/SC)+" m";
 
   // 3 chapter labels
-  [["a","01 · EINSCHALEN &amp; BEWEHREN"],["b","02 · BETONIEREN IM TAKT"],["c","03 · AUSSCHALEN"]].forEach(function(l){
+  [["a","01 · EINSCHALEN &amp; BEWEHREN"],["b","02 · BETONIEREN IN LAGEN"],["c","03 · AUSSCHALEN"]].forEach(function(l){
     E("labs","text",{"class":"lab "+l[0],x:60,y:130}).innerHTML=l[1];
   });
   }
   window.__hfRegenerate = generate;
   generate();
+  // Registered once, outside generate() — the print stylesheet kills the CSS
+  // animations, so no pour event would fire and the readout would freeze on
+  // 01 next to a finished tower. Print the end state, then restore live value.
+  window.addEventListener("beforeprint",function(){
+    var L=window.__hfLage;
+    if(L&&!L.reduced) L.num.textContent="10";
+  });
+  window.addEventListener("afterprint",function(){
+    var L=window.__hfLage;
+    if(L&&!L.reduced){ var c=L.cur(); L.num.textContent=(c<10?"0":"")+c; }
+  });
 })();
 </script>
 
