@@ -493,10 +493,10 @@
       .card__title { font-size: clamp(26px, 8vw, 38px); }
       .card__sub { font-size: 14px; }
       .card__contact { grid-template-columns: 84px 1fr; gap: 12px; }
-      .foot { padding: 14px 18px; }
+      .foot { padding: 14px 18px 20px; padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
       .foot__inner { flex-direction: column; align-items: flex-start; gap: 10px; }
       .foot__mark { flex-direction: column; align-items: flex-start; gap: 6px; }
-      .foot__links { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .foot__links { flex-direction: row; align-items: center; gap: 20px; }
       .foot__link {
         font-size: 12px;
         font-weight: 700;
@@ -519,7 +519,7 @@
       .card__contact { grid-template-columns: 78px 1fr; gap: 10px; }
       .card__contact dt { font-size: 9.5px; }
       .card__contact dd { font-size: 13px; }
-      .foot { padding: 12px 14px; font-size: 0.7rem; }
+      .foot { padding: 12px 14px 18px; padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px)); font-size: 0.7rem; }
       .foot__copy { font-size: 9.5px; letter-spacing: 0.06em; }
       .foot__link {
         font-size: 11px;
