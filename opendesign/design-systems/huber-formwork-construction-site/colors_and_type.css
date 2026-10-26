@@ -1,0 +1,45 @@
+:root {
+  --huber-formwork-construction-site-background: #fafaf7;
+  --huber-formwork-construction-site-surface: #ffffff;
+  --huber-formwork-construction-site-surface-muted: #f4f1ec;
+  --huber-formwork-construction-site-foreground: #1a1a18;
+  --huber-formwork-construction-site-muted: #706b65;
+  --huber-formwork-construction-site-border: #f5f4ef;
+  --huber-formwork-construction-site-accent: #f3f4e9;
+  --huber-formwork-construction-site-success: #5d8f5a;
+  --huber-formwork-construction-site-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --huber-formwork-construction-site-font-serif: Georgia, "Times New Roman", serif;
+  --huber-formwork-construction-site-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --huber-formwork-construction-site-radius-sm: 6px;
+  --huber-formwork-construction-site-radius-md: 10px;
+  --huber-formwork-construction-site-radius-lg: 16px;
+  --huber-formwork-construction-site-space-1: 4px;
+  --huber-formwork-construction-site-space-2: 8px;
+  --huber-formwork-construction-site-space-3: 12px;
+  --huber-formwork-construction-site-space-4: 16px;
+  --huber-formwork-construction-site-space-6: 24px;
+  --huber-formwork-construction-site-space-8: 32px;
+
+  --color-background: var(--huber-formwork-construction-site-background);
+  --color-surface: var(--huber-formwork-construction-site-surface);
+  --color-background-soft: var(--huber-formwork-construction-site-surface-muted);
+  --color-text: var(--huber-formwork-construction-site-foreground);
+  --color-text-1: var(--huber-formwork-construction-site-foreground);
+  --color-text-secondary: var(--huber-formwork-construction-site-muted);
+  --color-border: var(--huber-formwork-construction-site-border);
+  --color-primary: var(--huber-formwork-construction-site-accent);
+  --color-primary-soft: color-mix(in srgb, var(--huber-formwork-construction-site-accent) 14%, transparent);
+  --font-family: var(--huber-formwork-construction-site-font-sans);
+  --code-font-family: var(--huber-formwork-construction-site-font-mono);
+  --radius-control: var(--huber-formwork-construction-site-radius-sm);
+  --radius-card: var(--huber-formwork-construction-site-radius-md);
+  --space-2: var(--huber-formwork-construction-site-space-2);
+  --space-3: var(--huber-formwork-construction-site-space-3);
+  --space-4: var(--huber-formwork-construction-site-space-4);
+}
+
+.od-design-system-preview {
+  color: var(--huber-formwork-construction-site-foreground);
+  background: var(--huber-formwork-construction-site-background);
+  font-family: var(--huber-formwork-construction-site-font-sans);
+}

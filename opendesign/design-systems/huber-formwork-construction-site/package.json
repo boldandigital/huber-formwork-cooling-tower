@@ -1,0 +1,8 @@
+{
+  "name": "huber-formwork-construction-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preview": "open index.html"
+  }
+}
