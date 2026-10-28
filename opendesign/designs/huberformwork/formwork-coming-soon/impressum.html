@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impressum — HUBER FORMWORK</title>
+  <meta name="description" content="Impressum der HUBER FORMWORK, Ravensburg. Angaben gemäß § 5 TMG.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    :root {
+      --hf-paper:        #FAFAF7;
+      --hf-paper-warm:   #F5F4EF;
+      --hf-paper-soft:   #F3F4E9;
+      --hf-mineral:      #EDEFDD;
+      --hf-red:          #AD0C1B;
+      --hf-red-soft:     #EBCFD2;
+      --hf-ink:          #1A1A18;
+      --hf-ink-2:        #2A2A27;
+      --hf-mid:          #5C5B53;
+      --hf-mid-2:        #6F6E65;
+      --hf-mid-3:        #8A897F;
+      --hf-line:         #DEDDD5;
+      --hf-line-soft:    #D3D4BE;
+      --hf-concrete:     #C9C7BB;
+
+      --type-display: clamp(2.5rem, 4.6vw, 4.875rem);
+      --type-h2:      clamp(2.625rem, 4.6vw, 5rem);
+      --type-h3:      clamp(1.5rem, 2.2vw, 2.125rem);
+      --type-body:    1.0625rem;
+      --type-mono:    0.6875rem;
+      --letter-mono:  0.15em;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: var(--type-body);
+      line-height: 1.55;
+      color: var(--hf-ink);
+      background: linear-gradient(180deg, var(--hf-paper) 0%, var(--hf-paper-warm) 100%);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Top bar — back link + wordmark */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 32px;
+      border-bottom: 1px solid var(--hf-line);
+      max-width: 1320px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .topbar__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--hf-ink);
+    }
+    .topbar__back-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      color: var(--hf-mid-2);
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topbar__back-label .accent-square {
+      width: 9px;
+      height: 9px;
+      background: var(--hf-red);
+    }
+    .topbar__back-label:hover { color: var(--hf-ink); }
+
+    .wordmark {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Archivo', sans-serif;
+      font-size: 1rem;
+      line-height: 1;
+      letter-spacing: 0.005em;
+    }
+    .wordmark--light { color: var(--hf-paper-warm); }
+    .wordmark__a { font-weight: 900; }
+    .wordmark__bar {
+      display: inline-block;
+      width: 3px;
+      height: 1.05em;
+      background: var(--hf-red);
+      margin: 0 0.42em;
+      flex-shrink: 0;
+    }
+    .wordmark__b { font-weight: 400; }
+    .wordmark--ink { color: var(--hf-ink); }
+
+    .brand-glyph {
+      display: block;
+      width: 100%;
+      max-width: 960px;
+      height: 18px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Page shell */
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 64px 32px 96px;
+    }
+
+    .page__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      color: var(--hf-mid-2);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .accent-square {
+      width: 9px;
+      height: 9px;
+      background: var(--hf-red);
+      flex-shrink: 0;
+    }
+
+    .page__title {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 800;
+      font-size: var(--type-h2);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--hf-ink);
+      margin: 0 0 18px 0;
+    }
+
+    .page__lede {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 400;
+      font-size: 1.125rem;
+      line-height: 1.55;
+      color: var(--hf-mid);
+      margin: 0 0 56px 0;
+      max-width: 640px;
+    }
+
+    /* Section card — paper-warm bg + 2px red top border */
+    .legal {
+      display: grid;
+      gap: 22px;
+    }
+
+    .legal__block {
+      background: var(--hf-paper-warm);
+      border-top: 2px solid var(--hf-red);
+      padding: 28px 32px 30px;
+      position: relative;
+    }
+
+    .legal__heading {
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+      margin: 0 0 14px 0;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      line-height: 1.2;
+      color: var(--hf-ink);
+      letter-spacing: -0.005em;
+    }
+    .legal__num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      color: var(--hf-mid-2);
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .legal__body {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--hf-ink-2);
+      margin: 0;
+    }
+    .legal__body p { margin: 0 0 10px 0; }
+    .legal__body p:last-child { margin-bottom: 0; }
+    .legal__body a {
+      color: var(--hf-ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 200ms ease;
+    }
+    .legal__body a:hover { border-bottom-color: var(--hf-red); }
+
+    .legal__dl {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 10px 24px;
+      margin: 0;
+    }
+    .legal__dt {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      text-transform: uppercase;
+      color: var(--hf-mid-2);
+    }
+    .legal__dd {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--hf-ink);
+      margin: 0;
+    }
+
+    /* Footer — same as index */
+    .foot {
+      background: var(--hf-ink);
+      color: var(--hf-paper-warm);
+      padding: 22px 32px;
+    }
+    .foot__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .foot__mark {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+    .foot__copy {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 400;
+      letter-spacing: var(--letter-mono);
+      color: var(--hf-mid-3);
+      text-transform: uppercase;
+    }
+    .foot__link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      color: var(--hf-paper-warm);
+      text-decoration: none;
+      text-transform: uppercase;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+      transition: border-color 200ms ease;
+    }
+    .foot__link:hover { border-bottom-color: var(--hf-red); }
+
+    @media (max-width: 720px) {
+      .topbar { padding: 18px 20px; }
+      .topbar__back-label span:not(.accent-square) { display: none; }
+      .brand-glyph { display: none; }
+      .page { padding: 40px 20px 64px; }
+      .legal__block { padding: 22px 22px 24px; }
+      .legal__heading { flex-direction: column; gap: 6px; }
+      .legal__dl { grid-template-columns: 1fr; gap: 4px 0; }
+      .legal__dt { margin-bottom: -4px; }
+      .foot__inner { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .foot__mark { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+
+    @media print {
+      body { background: var(--hf-paper); }
+      .topbar { border-bottom: 1px solid var(--hf-line); }
+      .legal__block {
+        background: var(--hf-paper);
+        border-top: 2px solid var(--hf-red);
+        border-bottom: 1px solid var(--hf-line);
+        page-break-inside: avoid;
+      }
+      .foot { background: var(--hf-paper); color: var(--hf-ink); border-top: 1px solid var(--hf-line); }
+      .wordmark--light, .foot__link { color: var(--hf-ink); }
+    }
+    @page { size: A4; margin: 18mm; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="topbar__back" href="index.html" aria-label="Zurück zur Startseite">
+      <span class="topbar__back-label">
+        <span class="accent-square" aria-hidden="true"></span>
+        <span>← ZURÜCK</span>
+      </span>
+    </a>
+    <span class="wordmark wordmark--ink" aria-label="HUBER FORMWORK">
+      <span class="wordmark__a">HUBER</span><span class="wordmark__bar" aria-hidden="true"></span><span class="wordmark__b">FORMWORK</span>
+    </span>
+  </header>
+
+  <!-- Brand mark glyph row: 9 red squares across, baseline anchor -->
+  <svg class="brand-glyph" viewBox="0 0 920 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="0"   y="9" width="9" height="9" fill="#AD0C1B" />
+    <rect x="44"  y="9" width="9" height="9" fill="#AD0C1B" />
+    <rect x="88"  y="9" width="9" height="9" fill="#AD0C1B" />
+    <rect x="132" y="9" width="9" height="9" fill="#AD0C1B" />
+    <rect x="176" y="9" width="9" height="9" fill="#AD0C1B" />
+    <rect x="780" y="9" width="9" height="9" fill="#AD0C1B" />
+    <rect x="824" y="9" width="9" height="9" fill="#AD0C1B" />
+    <rect x="868" y="9" width="9" height="9" fill="#AD0C1B" />
+    <line x1="220" y1="13.5" x2="760" y2="13.5" stroke="#DEDDD5" stroke-width="1" />
+  </svg>
+
+  <main class="page">
+    <span class="page__eyebrow">
+      <span class="accent-square" aria-hidden="true"></span>
+      <span>Rechtliches</span>
+    </span>
+    <h1 class="page__title">Impressum</h1>
+    <p class="page__lede">Angaben gemäß § 5 TMG sowie weitere gesetzliche Pflichtangaben der HUBER FORMWORK.</p>
+
+    <section class="legal">
+
+      <article class="legal__block">
+        <h2 class="legal__heading">
+          <span class="legal__num">01</span>
+          <span>Angaben gemäß § 5 TMG</span>
+        </h2>
+        <div class="legal__body">
+          <p>HUBER FORMWORK<br>
+          Rautbrühl 11<br>
+          88214 Ravensburg</p>
+        </div>
+      </article>
+
+      <article class="legal__block">
+        <h2 class="legal__heading">
+          <span class="legal__num">02</span>
+          <span>Kontakt</span>
+        </h2>
+        <dl class="legal__dl">
+          <dt class="legal__dt">Telefon</dt>
+          <dd class="legal__dd"><a href="tel:+497517694522">0751 769 45 22</a></dd>
+          <dt class="legal__dt">E-Mail</dt>
+          <dd class="legal__dd"><a href="mailto:info@huberformwork.de">info@huberformwork.de</a></dd>
+          <dt class="legal__dt">Web</dt>
+          <dd class="legal__dd"><a href="https://www.huberformwork.de" rel="noopener">www.huberformwork.de</a></dd>
+        </dl>
+      </article>
+
+      <article class="legal__block">
+        <h2 class="legal__heading">
+          <span class="legal__num">03</span>
+          <span>Vertretungsberechtigt</span>
+        </h2>
+        <div class="legal__body">
+          <p>Geschäftsführer: Johannes Huber</p>
+        </div>
+      </article>
+
+      <article class="legal__block">
+        <h2 class="legal__heading">
+          <span class="legal__num">04</span>
+          <span>Registereintrag</span>
+        </h2>
+        <dl class="legal__dl">
+          <dt class="legal__dt">Registergericht</dt>
+          <dd class="legal__dd">Amtsgericht Ulm</dd>
+          <dt class="legal__dt">Registernummer</dt>
+          <dd class="legal__dd">HRB 746846</dd>
+        </dl>
+      </article>
+
+      <article class="legal__block">
+        <h2 class="legal__heading">
+          <span class="legal__num">05</span>
+          <span>Umsatzsteuer</span>
+        </h2>
+        <dl class="legal__dl">
+          <dt class="legal__dt">USt-IdNr.</dt>
+          <dd class="legal__dd">DE 363071472</dd>
+        </dl>
+      </article>
+
+      <article class="legal__block">
+        <h2 class="legal__heading">
+          <span class="legal__num">06</span>
+          <span>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</span>
+        </h2>
+        <div class="legal__body">
+          <p>Johannes Huber<br>
+          Anschrift wie oben.</p>
+        </div>
+      </article>
+
+      <article class="legal__block">
+        <h2 class="legal__heading">
+          <span class="legal__num">07</span>
+          <span>Streitbeilegung</span>
+        </h2>
+        <div class="legal__body">
+          <p>Wir sind weder bereit noch verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <div class="foot__mark">
+        <span class="wordmark wordmark--light">
+          <span class="wordmark__a">HUBER</span><span class="wordmark__bar" aria-hidden="true"></span><span class="wordmark__b">FORMWORK</span>
+        </span>
+        <span class="foot__copy">© 2026 HUBER FORMWORK</span>
+      </div>
+      <a class="foot__link" href="index.html">← STARTSEITE</a>
+    </div>
+  </footer>
+</body>
+</html>

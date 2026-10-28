@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HUBER FORMWORK — Kontakt · Ravensburg</title>
+  <meta name="description" content="HUBER FORMWORK, Schalungsbau aus Ravensburg (Oberschwaben). Kletterschalung, Deckenschalung, Sichtbeton. Sprechen Sie mit uns über Ihr Projekt." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    :root {
+      /* HUBER FORMWORK brand tokens — sister brand to HUBER BAU; signal-red replaces their signal-accent */
+      --hf-paper:        #FAFAF7;
+      --hf-paper-warm:   #F5F4EF;
+      --hf-paper-soft:   #F3F4E9;
+      --hf-mineral:      #EDEFDD;
+      --hf-red:          #AD0C1B;
+      --hf-red-soft:     #EBCFD2;
+      --hf-ink:          #1A1A18;
+      --hf-ink-2:        #2A2A27;
+      --hf-mid:          #5C5B53;
+      --hf-mid-2:        #6F6E65;
+      --hf-mid-3:        #8A897F;
+      --hf-line:         #DEDDD5;
+      --hf-line-soft:    #D3D4BE;
+      --hf-concrete:     #C9C7BB;
+
+      --type-display: clamp(2.5rem, 4.6vw, 4.875rem);
+      --type-h2:      clamp(2.625rem, 4.6vw, 5rem);
+      --type-h3:      clamp(1.5rem, 2.2vw, 2.125rem);
+      --type-body:    1.0625rem;
+      --type-mono:    0.6875rem;
+      --letter-mono:  0.15em;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    body {
+      font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: var(--type-body);
+      line-height: 1.55;
+      color: var(--hf-ink);
+      background: linear-gradient(180deg, var(--hf-paper) 0%, var(--hf-paper-warm) 100%);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--hf-red); color: var(--hf-paper); }
+    a { color: inherit; text-decoration: none; }
+
+    /* Radial red wash behind the SVG */
+    .bg-wash {
+      position: fixed;
+      top: -18%;
+      left: -8%;
+      width: 80vw;
+      height: 80vw;
+      max-width: 1200px;
+      max-height: 1200px;
+      background: radial-gradient(circle at center, rgba(173, 12, 27, 0.10) 0%, rgba(173, 12, 27, 0) 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 24px 0;
+      gap: 4px;
+      z-index: 1;
+    }
+    .hero__brand {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.85rem;
+      line-height: 1;
+      letter-spacing: 0.005em;
+      color: var(--hf-ink);
+      padding: 8px 0 6px;
+    }
+    .hero__brand .wordmark__a { font-weight: 900; }
+    .hero__brand .wordmark__bar {
+      display: inline-block;
+      width: 3px;
+      height: 1.05em;
+      background: var(--hf-red);
+      margin: 0 0.42em;
+      flex-shrink: 0;
+    }
+    .hero__brand .wordmark__b { font-weight: 400; }
+
+    /* === HERO STAGE — slab-pour sequence === */
+    .hero__stage {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 0 0;
+      min-height: 0;
+    }
+    .hero__stage-inner {
+      flex: 0 1 auto;
+      width: 100%;
+      max-width: 1180px;
+      transform-origin: 50% 50%;
+      transform: translateX(-2rem);
+    }
+    .hf-hero__svg {
+      width: 100%;
+      max-width: 1180px;
+      height: auto;
+      max-height: 56vh;
+      overflow: visible;
+      display: block;
+      flex-shrink: 1;
+    }
+
+    /* Construction-paper grid + ground textures */
+    .hf-hero__svg .hf-grid { fill: url(#hfGrid); }
+    .hf-hero__svg .soil {
+      opacity: 0;
+      animation: hf-in 0.8s ease 2.2s forwards;
+    }
+    .hf-hero__svg .gravel {
+      fill: #8A897F;
+      opacity: 0;
+      animation: hf-in 0.5s ease 2.4s forwards;
+    }
+
+    /* Stroke-draw base (ground line) */
+    .hf-hero__svg .ln {
+      fill: none;
+      stroke: #1A1A18;
+      stroke-width: 2;
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: hf-draw 0.8s ease 2.1s forwards;
+    }
+
+    /* Existing walls with brick texture */
+    .hf-hero__svg .wall rect {
+      stroke: #1A1A18;
+      stroke-width: 1.5;
+      fill: #A8A89E;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: hf-slide 0.7s cubic-bezier(.2,.8,.2,1) 2.3s forwards;
+    }
+
+    /* Brace stays (orange cross-bracing between props) */
+    .hf-hero__svg .brace path {
+      stroke: #AD0C1B;
+      stroke-width: 1;
+      fill: none;
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      opacity: 0.7;
+      animation: hf-draw 0.9s ease 3.3s forwards, hf-fade 0.5s ease 10.3s forwards;
+    }
+
+    /* === Ch 1 — EINSCHALEN: props + beam + panel === */
+    .hf-hero__svg .prop {
+      opacity: 0;
+      transform-origin: bottom;
+      transform: scaleY(0.1);
+      animation:
+        hf-grow 0.6s cubic-bezier(.2,.9,.3,1) calc(2.6s + var(--i) * 0.15s) forwards,
+        hf-lower 1s ease-in calc(8.4s + var(--i) * 0.1s) forwards;
+    }
+    .hf-hero__svg .prop rect {
+      fill: rgba(173, 12, 27, 0.25);
+      stroke: #AD0C1B;
+      stroke-width: 2;
+    }
+    .hf-hero__svg .beam,
+    .hf-hero__svg .panel {
+      opacity: 0;
+      transform: translateY(34px);
+    }
+    .hf-hero__svg .beam rect,
+    .hf-hero__svg .panel rect {
+      fill: rgba(173, 12, 27, 0.22);
+      stroke: #AD0C1B;
+      stroke-width: 2;
+    }
+    .hf-hero__svg .beam path,
+    .hf-hero__svg .panel path {
+      stroke: #AD0C1B;
+      stroke-width: 1;
+      fill: none;
+    }
+    .hf-hero__svg .screws circle { fill: #AD0C1B; }
+    .hf-hero__svg .beam {
+      animation: hf-slide 0.6s cubic-bezier(.2,.9,.3,1) 3.3s forwards, hf-drop 1s ease-in 10.9s forwards;
+    }
+    .hf-hero__svg .panel {
+      animation: hf-slide 0.6s cubic-bezier(.2,.9,.3,1) 3.5s forwards, hf-drop 1s ease-in 10.7s forwards;
+    }
+
+    /* === Ch 2 — BEWEHREN (rebar generated by JS) === */
+    .hf-hero__svg #rebar .bar {
+      fill: none;
+      stroke: #1A1A18;
+      stroke-width: 2.5;
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: hf-draw 0.6s ease forwards;
+    }
+    .hf-hero__svg #rebar .dot {
+      fill: #AD0C1B;
+      opacity: 0;
+      transform: scale(0);
+      animation: hf-pop 0.3s cubic-bezier(.3,1.8,.5,1) calc(4s + var(--i) * 0.025s) forwards;
+    }
+    .hf-hero__svg #rebar .chair {
+      stroke: #AD0C1B;
+      stroke-width: 2;
+      fill: none;
+      opacity: 0;
+      animation: hf-in 0.3s ease calc(3.9s + var(--i) * 0.08s) forwards;
+    }
+
+    /* === Ch 3 — BETONIEREN: clip-path concrete flow === */
+    .hf-hero__svg .wet path:first-child {
+      fill: #C9C7BB;
+      animation: hf-cure 1.2s ease 7.8s forwards;
+    }
+    .hf-hero__svg .rough path:first-child {
+      fill: #C9C7BB;
+      stroke: #FAFAF7;
+      stroke-width: 1.5;
+    }
+    .hf-hero__svg .clip-pour {
+      transform-origin: left center;
+      transform: scaleX(0);
+      animation: hf-flow 2.1s cubic-bezier(.4,.1,.5,1) 4.8s forwards;
+    }
+    .hf-hero__svg .clip-screed {
+      transform-origin: right center;
+      transform: scaleX(1);
+      animation: hf-sc 1.7s cubic-bezier(.45,.05,.5,1) 5.9s forwards;
+    }
+
+
+    /* Concrete vibrators (3 of them, different delays via --d) */
+
+
+    /* Pump boom + nozzle + concrete stream */
+    .hf-hero__svg .nz {
+      opacity: 0;
+      transform: translateX(230px);
+      animation: hf-nozzle 2.1s cubic-bezier(.4,.1,.5,1) 4.8s forwards;
+    }
+    .hf-hero__svg .arm {
+      stroke: #AD0C1B;
+      stroke-width: 5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .hf-hero__svg .joint { fill: #FAFAF7; stroke: #AD0C1B; stroke-width: 2; }
+    .hf-hero__svg .hose2 { stroke: #A8A89E; stroke-width: 5; fill: none; }
+    .hf-hero__svg .nozzle { fill: #AD0C1B; }
+    .hf-hero__svg .stream {
+      stroke: #C9C7BB;
+      stroke-width: 7;
+      fill: none;
+      stroke-dasharray: 7 5;
+      animation: hf-str 0.22s linear infinite;
+    }
+
+    /* Cure shimmer (steam wisps rising off cured slab) */
+    .hf-hero__svg .cure path {
+      stroke: #FAFAF7;
+      stroke-width: 1.5;
+      fill: none;
+      opacity: 0;
+      animation: hf-steam 1.2s ease 7.9s forwards;
+    }
+    .hf-hero__svg .cure path:nth-child(2) { animation-delay: 6.05s; }
+    .hf-hero__svg .cure path:nth-child(3) { animation-delay: 6.2s; }
+    .hf-hero__svg .cure path:nth-child(4) { animation-delay: 6.35s; }
+
+    /* Dimension lines + level marker + concrete grade label */
+    .hf-hero__svg .dim {
+      opacity: 0;
+      animation: hf-in 0.6s ease 9.5s forwards;
+    }
+    .hf-hero__svg .dim path { stroke: #5C5B53; stroke-width: 1; fill: none; }
+    .hf-hero__svg .dim text {
+      fill: #5C5B53;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+    }
+
+    /* Step labels cycling in top-left */
+    .hf-hero__svg .lab {
+      fill: #AD0C1B;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 18px;
+      letter-spacing: 0.2em;
+      opacity: 0;
+    }
+    .hf-hero__svg .l1 { animation: hf-lab 1.5s ease 2.5s forwards; }
+    .hf-hero__svg .l2 { animation: hf-lab 0.9s ease 4s   forwards; }
+    .hf-hero__svg .l3 { animation: hf-lab 3.1s ease 4.8s forwards; }
+    .hf-hero__svg .l4 { animation: hf-lab 1.4s ease 8.3s forwards; }
+
+    /* Progress bars in top-right (one per chapter, fills L→R as chapter plays) */
+    /* Whole progress-bar group fades out at the end so the final frame is clean */
+    .hf-hero__svg .steps { opacity: 1; animation: hf-fade 1s ease 9.5s forwards; }
+    .hf-hero__svg .tr { fill: rgba(26, 26, 24, 0.18); }
+    .hf-hero__svg .fl { fill: #AD0C1B; transform-origin: left; transform: scaleX(0); }
+    /* Each bar fills during its chapter, then ALL bars fade out on the last frame. */
+    .hf-hero__svg .f1 { animation: hf-sx 1.5s linear 2.5s forwards; }
+    .hf-hero__svg .f2 { animation: hf-sx 0.8s linear 4s   forwards; }
+    .hf-hero__svg .f3 { animation: hf-sx 3s   linear 4.8s forwards; }
+    .hf-hero__svg .f4 { animation: hf-sx 1.3s linear 8.3s forwards, hf-fade 1s ease 9.5s forwards; }
+
+    /* Centered tag — sits below the hero illustration, fades in after the chapter sequence */
+    /* Centered scope tagline — sits between wordmark and animation, fades in after chapter 1 */
+    .hero__tag {
+      text-align: center;
+      margin: 0 0 6px;
+      opacity: 0;
+      animation: hf-in 1s ease 9.5s forwards;
+    }
+    .hero__tag .tag {
+      color: #AD0C1B;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      margin: 0;
+    }
+    .hero__tag .tag {
+      color: #AD0C1B;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      margin: 0;
+      font-weight: 500;
+    }
+    @media (max-width: 720px) {
+      .hero__tag { margin: -16px auto 0; }
+      .hero__tag .tag { font-size: 11px; }
+    }
+    
+
+
+    /* Bottom info card — overlapping the SVG */
+    .hero__card-wrap {
+      width: min(1180px, calc(100vw - 32px));
+      margin: -80px auto 0;
+      z-index: 3;
+      flex-shrink: 0;
+    }
+    .hero__card {
+      background: rgba(250, 250, 247, 0.94);
+      backdrop-filter: blur(14px) saturate(1.05);
+      -webkit-backdrop-filter: blur(14px) saturate(1.05);
+      border-top: 3px solid var(--hf-red);
+      padding: 32px 40px 36px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+      gap: 40px;
+      align-items: start;
+    }
+    .hero__card__intro { padding-right: 12px; }
+    .hero__card__contacts {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+    .hero__card__contacts dl { margin: 0; }
+    @media (max-width: 860px) {
+      .hero__card { grid-template-columns: 1fr; padding: 24px 22px 26px; gap: 22px; }
+      .hero__card__intro { padding-right: 0; }
+      .hero__stage-inner { transform: none; }
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      text-transform: uppercase;
+      color: var(--hf-mid-2);
+      margin-bottom: 14px;
+    }
+    .accent-square {
+      width: 9px;
+      height: 9px;
+      background: var(--hf-red);
+      flex-shrink: 0;
+    }
+    .card__title {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 3.2vw, 2.625rem);
+      line-height: 1.04;
+      letter-spacing: -0.018em;
+      color: var(--hf-ink);
+      margin: 0 0 14px 0;
+    }
+    .card__sub {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.55;
+      color: var(--hf-mid-2);
+      margin: 0 0 22px 0;
+    }
+    .card__contacts {
+      display: grid;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+    }
+    .card__contact {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 18px;
+      align-items: baseline;
+      padding: 12px 0;
+      border-top: 1px solid var(--hf-line);
+    }
+    .card__contact:last-child { border-bottom: 1px solid var(--hf-line); }
+    .card__contact dt {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      text-transform: uppercase;
+      color: var(--hf-mid-2);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+    }
+    .card__contact dd {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--hf-ink);
+      margin: 0;
+    }
+    .card__contact dd a {
+      color: var(--hf-ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 200ms ease;
+    }
+    .card__contact dd a:hover { border-bottom-color: var(--hf-red); }
+
+    /* Footer */
+    .foot {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      background: var(--hf-ink);
+      color: var(--hf-paper-warm);
+      padding: 18px 32px;
+      flex-shrink: 0;
+    }
+    .foot__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .foot__mark {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+    .wordmark {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Archivo', sans-serif;
+      font-size: 1rem;
+      line-height: 1;
+      letter-spacing: 0.005em;
+    }
+    .wordmark--light { color: var(--hf-paper-warm); }
+    .wordmark__a { font-weight: 900; }
+    .wordmark__bar {
+      display: inline-block;
+      width: 3px;
+      height: 1.05em;
+      background: var(--hf-red);
+      margin: 0 0.42em;
+      flex-shrink: 0;
+    }
+    .wordmark__b { font-weight: 400; }
+    .foot__copy {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 400;
+      letter-spacing: var(--letter-mono);
+      color: var(--hf-mid-3);
+      text-transform: uppercase;
+    }
+    .foot__link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: var(--letter-mono);
+      color: var(--hf-paper-warm);
+      text-decoration: none;
+      text-transform: uppercase;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+      transition: border-color 200ms ease;
+    }
+    .foot__link:hover { border-bottom-color: var(--hf-red); }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .hero { padding: 24px 24px 0; }
+      .foot { padding: 16px 24px; }
+      .foot__inner { gap: 18px; }
+      .foot__mark { gap: 16px; }
+    }
+    @media (max-width: 720px) {
+      .hero { padding: 16px 18px 0; gap: 0; }
+      .hero__brand { font-size: 0.95rem; padding: 4px 0 2px; }
+      .hero__tag .tag { font-size: 11px; }
+      .hf-hero__svg { max-height: 46vh; }
+      .hero__stage-inner { transform: none; }
+      .hero__card-wrap { margin: -60px auto 0; }
+      .hero__card { padding: 20px 18px 22px; gap: 18px; }
+      .card__title { font-size: clamp(26px, 8vw, 38px); }
+      .card__sub { font-size: 14px; }
+      .card__contact { grid-template-columns: 84px 1fr; gap: 12px; }
+      .foot { padding: 14px 18px; }
+      .foot__inner { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .foot__mark { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .foot__link {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        padding: 4px 0;
+        border-bottom: 1px solid rgba(173, 12, 27, 0.5);
+        margin-top: 2px;
+        align-self: flex-start;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 12px 14px 0; gap: 0; }
+      .hero__brand { font-size: 0.85rem; padding: 4px 0 2px; }
+      .hero__tag { display: block; margin: 0 0 4px; }
+      .hero__tag .tag { font-size: 9px; letter-spacing: 0.16em; }
+      .hf-hero__svg { max-height: 46vh; }
+      .hero__stage-inner { transform: none; }
+      .hero__card-wrap { margin: -40px auto 0; width: calc(100vw - 24px); }
+      .hero__card { padding: 16px 14px 18px; gap: 14px; }
+      .card__contact { grid-template-columns: 78px 1fr; gap: 10px; }
+      .card__contact dt { font-size: 9.5px; }
+      .card__contact dd { font-size: 13px; }
+      .foot { padding: 12px 14px; font-size: 0.7rem; }
+      .foot__copy { font-size: 9.5px; letter-spacing: 0.06em; }
+      .foot__link {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        padding: 4px 0;
+        border-bottom: 1px solid rgba(173, 12, 27, 0.4);
+        margin-top: 2px;
+        align-self: flex-start;
+      }
+    }
+
+    /* Keyframes — refined v3 formwork sequence */
+    @keyframes hf-draw     { to { stroke-dashoffset: 0; } }
+    @keyframes hf-in       { to { opacity: 1; } }
+    @keyframes hf-fade     { to { opacity: 0; } }
+    @keyframes hf-grow     { to { opacity: 1; transform: scaleY(1); } }
+    @keyframes hf-slide    { to { opacity: 1; transform: none; } }
+    @keyframes hf-pop      { to { opacity: 1; transform: scale(1); } }
+    @keyframes hf-flow     { to { transform: scaleX(1); } }
+    @keyframes hf-sc       { to { transform: scaleX(0); } }
+    @keyframes hf-sx       { to { transform: scaleX(1); } }
+    @keyframes hf-cure     { to { fill: #9C9A8E; } }
+    @keyframes hf-str      { to { stroke-dashoffset: -12; } }
+    @keyframes hf-nozzle {
+      0%   { opacity: 1; transform: translateX(230px); }
+      92%  { opacity: 1; }
+      100% { opacity: 0; transform: translateX(968px); }
+    }
+    @keyframes hf-steam {
+      0%   { opacity: 0; transform: translateY(8px); }
+      40%  { opacity: 0.7; }
+      100% { opacity: 0; transform: translateY(-12px); }
+    }
+    @keyframes hf-lower {
+      0%   { opacity: 1; }
+      25%  { opacity: 1; transform: translateY(8px); }
+      100% { opacity: 0; transform: translateY(70px); }
+    }
+    @keyframes hf-drop {
+      0%   { opacity: 1; }
+      100% { opacity: 0; transform: translateY(100px); }
+    }
+    @keyframes hf-lab {
+      0%   { opacity: 0; transform: translateX(-10px); }
+      15%  { opacity: 1; transform: none; }
+      85%  { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    /* Reduced motion — jump to final composition */
+    @media (prefers-reduced-motion: reduce) {
+      .hf-hero__svg * { animation-duration: 0.01s !important; animation-delay: 0s !important; }
+      .hf-hero__svg .meta-line { opacity: 0.8; }
+      .hf-hero__svg .ln { stroke-dashoffset: 0; }
+      .hf-hero__svg .soil, .hf-hero__svg .gravel, .hf-hero__svg .wall rect { opacity: 1; transform: none; }
+      .hf-hero__svg .brace path { opacity: 0.7; }
+      .hf-hero__svg .prop { opacity: 1; transform: scaleY(1); }
+      .hf-hero__svg .beam, .hf-hero__svg .panel { opacity: 1; transform: none; }
+      .hf-hero__svg #rebar .bar { stroke-dashoffset: 0; }
+      .hf-hero__svg #rebar .dot { opacity: 1; transform: scale(1); }
+      .hf-hero__svg #rebar .chair { opacity: 1; }
+      .hf-hero__svg .clip-pour { transform: scaleX(1); }
+      .hf-hero__svg .clip-screed { transform: scaleX(0); }
+      .hf-hero__svg .wet path:first-child { fill: #9C9A8E; }
+      .hf-hero__svg .nz, .hf-hero__svg .vib, .hf-hero__svg .screed { opacity: 1; }
+      .hf-hero__svg .stream { stroke-dashoffset: 0; }
+      .hf-hero__svg .cure path { opacity: 0; }
+      .hf-hero__svg .dim { opacity: 1; }
+      .hf-hero__svg .l4 { opacity: 1; }
+      .hf-hero__svg .f1, .hf-hero__svg .f2, .hf-hero__svg .f3, .hf-hero__svg .f4 { transform: scaleX(1); }
+      .hero__tag { opacity: 1; }
+    }
+
+    /* Print fallback */
+    @media print {
+      body { background: var(--hf-paper); color: var(--hf-ink); }
+      .bg-wash { display: none; }
+      .hf-hero__svg { max-height: 28vh; }
+      .hero__card-wrap { position: static; transform: none; width: 100%; margin: 16px auto 24px; }
+      .hero__card {
+        background: var(--hf-paper);
+        backdrop-filter: none; -webkit-backdrop-filter: none;
+        border: 1px solid var(--hf-line);
+        border-top: 2px solid var(--hf-red);
+      }
+      .foot { background: var(--hf-paper); color: var(--hf-ink); border-top: 1px solid var(--hf-line); }
+      .wordmark--light, .foot__link { color: var(--hf-ink); }
+      .hf-hero__svg * { animation: none !important; }
+      .hf-hero__svg .clip-pour { transform: scaleX(1); }
+      .hf-hero__svg .wet path:first-child { fill: #9C9A8E; }
+      .hf-hero__svg .prop, .hf-hero__svg .beam, .hf-hero__svg .panel { opacity: 1; transform: none; }
+      .hero__tag { opacity: 1; position: static; text-align: center; padding: 24px; }
+    }
+
+    @page { size: A4; margin: 18mm; }
+  </style>
+</head>
+<body>
+  <div class="bg-wash" aria-hidden="true"></div>
+
+  <main class="hero">
+    <div class="hero__brand" aria-label="HUBER FORMWORK">
+      <span class="wordmark__a">HUBER</span><span class="wordmark__bar" aria-hidden="true"></span><span class="wordmark__b">FORMWORK</span>
+    </div>
+    <!-- Centered scope tagline — sits between the wordmark and the animation -->
+    <div class="hero__tag" aria-hidden="false">
+      <p class="tag">Betonplatten · Schalungen · Ortbeton</p>
+    </div>
+
+    <div class="hero__stage">
+      <div id="hf-stage-inner" class="hero__stage-inner">
+        <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet" class="hf-hero__svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <!-- soil hatching pattern (rotated 45deg) -->
+            <pattern id="soil" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <path d="M0 0V18" stroke="#1A1A18" stroke-opacity="0.18" stroke-width="1"/>
+            </pattern>
+            <!-- brick wall texture (existing flanking walls) -->
+            <pattern id="brick" width="40" height="20" patternUnits="userSpaceOnUse">
+              <path d="M0 0H40M0 10H40M0 20H40M20 0V10M0 10V20M40 10V20" stroke="#1A1A18" stroke-opacity="0.35" stroke-width="1" fill="none"/>
+            </pattern>
+            <!-- concrete aggregate dots -->
+            <pattern id="agg" width="26" height="22" patternUnits="userSpaceOnUse">
+              <circle cx="5"  cy="6"  r="1.6" fill="#1A1A18" fill-opacity="0.25"/>
+              <circle cx="17" cy="14" r="2.1" fill="#1A1A18" fill-opacity="0.20"/>
+              <circle cx="22" cy="4"  r="1.1" fill="#1A1A18" fill-opacity="0.30"/>
+              <circle cx="9"  cy="18" r="1.2" fill="#1A1A18" fill-opacity="0.25"/>
+            </pattern>
+            <!-- construction-paper grid (faint, full canvas) -->
+            <pattern id="hfGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" style="fill:none;stroke:#1A1A18;stroke-width:1;opacity:0.05"/>
+            </pattern>
+            <!-- clip the pour so it only reveals left-to-right of the slab area -->
+            <clipPath id="cp"><rect class="clip-pour" x="230" y="200" width="740" height="100"/></clipPath>
+            <clipPath id="cs"><rect class="clip-screed" x="230" y="200" width="740" height="100"/></clipPath>
+            <!-- clip the screed pass so it only shows within the finished slab -->
+            
+          </defs>
+
+          <!-- construction-paper grid (faint background) -->
+          <rect class="hf-grid" x="0" y="0" width="1200" height="600"/>
+
+          <!-- meta labels -->
+          
+          <!-- ground: hatched soil + gravel strip + ground line -->
+          <rect class="soil" x="60" y="500" width="1080" height="100" fill="url(#soil)"/>
+          <path class="ln" pathLength="1" d="M60 500H1140"/>
+          <rect class="gravel" x="200" y="500" width="800" height="10"/>
+
+          <!-- existing walls (with brick texture overlay) -->
+          <g class="wall">
+            <rect x="230" y="284" width="80" height="216"/>
+            <rect x="230" y="284" width="80" height="216" fill="url(#brick)"/>
+            <rect x="890" y="284" width="80" height="216"/>
+            <rect x="890" y="284" width="80" height="216" fill="url(#brick)"/>
+          </g>
+
+          <!-- diagonal brace stays between props -->
+          <g class="brace">
+            <path pathLength="1" d="M405 340L595 470M595 340L405 470M605 340L795 470M795 340L605 470"/>
+          </g>
+
+          <!-- 1 EINSCHALEN: 3 props (each as a <g> with CSS var --i for staggered timing) -->
+          <g class="props">
+            <g class="prop" style="--i:0">
+              <rect x="395" y="326" width="10" height="170"/>
+              <rect x="383" y="318" width="34" height="8"/>
+              <rect x="380" y="496" width="40" height="4"/>
+            </g>
+            <g class="prop" style="--i:1">
+              <rect x="595" y="326" width="10" height="170"/>
+              <rect x="583" y="318" width="34" height="8"/>
+              <rect x="580" y="496" width="40" height="4"/>
+            </g>
+            <g class="prop" style="--i:2">
+              <rect x="795" y="326" width="10" height="170"/>
+              <rect x="783" y="318" width="34" height="8"/>
+              <rect x="780" y="496" width="40" height="4"/>
+            </g>
+          </g>
+
+          <!-- primary beam (joist) spanning across -->
+          <g class="beam">
+            <rect x="310" y="302" width="580" height="16"/>
+            <path d="M310 310H890" stroke-dasharray="2 6"/>
+          </g>
+
+          <!-- shuttering panel (plywood face) on top of beam -->
+          <g class="panel">
+            <rect x="310" y="284" width="580" height="18"/>
+            <path d="M426 284V302M542 284V302M658 284V302M774 284V302"/>
+            <g class="screws">
+              <circle cx="368" cy="293" r="1.6"/>
+              <circle cx="484" cy="293" r="1.6"/>
+              <circle cx="600" cy="293" r="1.6"/>
+              <circle cx="716" cy="293" r="1.6"/>
+              <circle cx="832" cy="293" r="1.6"/>
+            </g>
+          </g>
+
+          <!-- 2 BEWEHREN: rebar populated by inline <script> -->
+          <g id="rebar"></g>
+
+          <!-- 3 BETONIEREN: concrete with pour clip + screed clip + aggregate fill -->
+          <g clip-path="url(#cp)">
+            <g class="wet">
+              <path id="smooth"/>
+              <path id="smooth2" fill="url(#agg)"/>
+            </g>
+            <g clip-path="url(#cs)">
+              <g class="rough">
+                <path id="rough"/>
+                <path id="rough2" fill="url(#agg)"/>
+              </g>
+            </g>
+          </g>
+
+          <!-- pump boom + nozzle + concrete stream (slides left-to-right as it pours) -->
+          <g class="nz">
+            <path class="arm" d="M0 20V110L-26 170"/>
+            <circle class="joint" cx="0" cy="110" r="6"/>
+            <circle class="joint" cx="-26" cy="170" r="5"/>
+            <path class="hose2" d="M-26 170Q-10 200 0 206"/>
+            <rect class="nozzle" x="-8" y="204" width="16" height="22" rx="3"/>
+            <path class="stream" d="M0 226V250"/>
+          </g>
+
+          <!-- steam/cure shimmer wisps rising off the cured slab -->
+          <g class="cure">
+            <path d="M300 232q8 -14 0 -26"/>
+            <path d="M520 232q8 -14 0 -26"/>
+            <path d="M740 232q8 -14 0 -26"/>
+            <path d="M920 232q8 -14 0 -26"/>
+          </g>
+
+          <!-- dimensions + level marker + concrete grade label -->
+          <g class="dim">
+            <path d="M310 560H890M310 550V570M890 550V570"/>
+            <text x="600" y="548" text-anchor="middle">L = 5,80 m</text>
+            <path d="M1010 244V284M1000 244H1020M1000 284H1020"/>
+            <text x="1030" y="270">d = 24 cm</text>
+            <path d="M970 244H1100" stroke-dasharray="4 4"/>
+            <path d="M1100 244l-8 -12h16z" fill="#AD0C1B" stroke="none"/>
+            <text x="1112" y="230" fill="#AD0C1B">+0,00</text>
+            <path d="M600 244V190M600 190H660" stroke="#AD0C1B"/>
+            <text x="668" y="194" fill="#AD0C1B">C25/30</text>
+          </g>
+
+          <!-- step labels cycling in top-left -->
+          <g class="labs">
+            <text class="lab l1" x="60" y="130">01 · EINSCHALEN</text>
+            <text class="lab l2" x="60" y="130">02 · BEWEHREN</text>
+            <text class="lab l3" x="60" y="130">03 · BETONIEREN</text>
+            <text class="lab l4" x="60" y="130">04 · AUSSCHALEN</text>
+          </g>
+
+          <!-- chapter progress bars in top-right (one per chapter, fills L→R as it plays) -->
+          <g class="steps">
+            <rect class="tr" x="840" y="130" width="60" height="3"/><rect class="fl f1" x="840" y="130" width="60" height="3"/>
+            <rect class="tr" x="910" y="130" width="60" height="3"/><rect class="fl f2" x="910" y="130" width="60" height="3"/>
+            <rect class="tr" x="980" y="130" width="60" height="3"/><rect class="fl f3" x="980" y="130" width="60" height="3"/>
+            <rect class="tr" x="1050" y="130" width="60" height="3"/><rect class="fl f4" x="1050" y="130" width="60" height="3"/>
+          </g>
+</svg>
+      </div>
+    </div>
+
+
+    <div class="hero__card-wrap">
+      <div class="hero__card">
+        <div class="hero__card__intro">
+
+          <span class="eyebrow">
+            <span class="accent-square" aria-hidden="true"></span>
+            <span>Kontakt · Anfrage · Beratung</span>
+          </span>
+          <h2 class="card__title">Sprechen Sie mit uns über Ihr Projekt.</h2>
+          <p class="card__sub">Direkt erreichbar — telefonisch, per E-Mail oder vor Ort in Ravensburg.</p>
+        </div>
+        <div class="hero__card__contacts">
+          <dl class="card__contacts">
+            <div class="card__contact">
+              <dt><span class="accent-square" aria-hidden="true"></span>Telefon</dt>
+              <dd><a href="tel:+497517694522">0751 769 45 22</a></dd>
+            </div>
+            <div class="card__contact">
+              <dt><span class="accent-square" aria-hidden="true"></span>E-Mail</dt>
+              <dd><a href="mailto:info@huberformwork.de">info@huberformwork.de</a></dd>
+            </div>
+            <div class="card__contact">
+              <dt><span class="accent-square" aria-hidden="true"></span>Adresse</dt>
+              <dd><a href="https://www.google.com/maps/search/?api=1&amp;query=Rautbr%C3%BChl+11+88214+Ravensburg" target="_blank" rel="noopener">Rautbrühl 11, 88214 Ravensburg ↗</a></dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <span class="foot__copy">© 2026 HUBER FORMWORK · RAUTBRÜHL 11 · 88214 RAVENSBURG</span>
+      <a href="impressum.html" class="foot__link">Impressum ↗</a>
+    </div>
+  </footer>
+
+
+  <script>
+  /* Rebar + concrete-path generator — runs after DOMContentLoaded.
+     Builds the 2 horizontal rebar bars, 36 dots, 6 chair zigzags, and
+     both concrete slab paths (smooth pour + rough finished surface). */
+  (function(){
+    var NS="http://www.w3.org/2000/svg";
+    function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e}
+    function ready(fn){if(document.readyState!=='loading'){fn()}else{document.addEventListener('DOMContentLoaded',fn)}}
+
+    ready(function(){
+      var g=document.getElementById("rebar");
+      if(g){
+        g.appendChild(el("path",{"class":"bar",pathLength:1,d:"M242 270H958",style:"animation-delay:3.9s"}));
+        g.appendChild(el("path",{"class":"bar",pathLength:1,d:"M242 254H958",style:"animation-delay:4.15s"}));
+        for(var i=0,x=262;x<=940;x+=36,i++){
+          g.appendChild(el("circle",{"class":"dot",cx:x,cy:278,r:3,style:"--i:"+i}));
+          g.appendChild(el("circle",{"class":"dot",cx:x+18,cy:246,r:3,style:"--i:"+(i+4)}));
+        }
+        for(var j=0,cx=330;cx<=870;cx+=108,j++){
+          g.appendChild(el("path",{"class":"chair",d:"M"+(cx-6)+" 284L"+cx+" 270L"+(cx+6)+" 284",style:"--i:"+j}));
+          g.appendChild(el("path",{"class":"chair",d:"M"+(cx+48)+" 270L"+(cx+48)+" 254",style:"--i:"+j}));
+        }
+      }
+      /* concrete slab paths — straight top for the smooth (wet) pour,
+         wavy top for the rough (finished) surface). */
+      var top=244, sm="M230 284V"+top+"H970V284Z";
+      var rt="M230 284V246";
+      for(var p=230;p<=970;p+=14){
+        rt+=" L"+p+" "+(244-Math.abs(Math.sin(p*0.21))*7-(p%28?2:0));
+      }
+      rt+=" V284Z";
+      var sm_el=document.getElementById("smooth");
+      if(sm_el) sm_el.setAttribute("d",sm);
+      var sm2_el=document.getElementById("smooth2");
+      if(sm2_el) sm2_el.setAttribute("d",sm);
+      var rt_el=document.getElementById("rough");
+      if(rt_el) rt_el.setAttribute("d",rt);
+      var rt2_el=document.getElementById("rough2");
+      if(rt2_el) rt2_el.setAttribute("d",rt);
+      var sm_el=document.getElementById("smooth");
+      if(sm_el) sm_el.setAttribute("d",sm);
+      var sm2_el=document.getElementById("smooth2");
+      if(sm2_el) sm2_el.setAttribute("d",sm);
+    });
+  })();
+  </script>
+  </body>
+</html>

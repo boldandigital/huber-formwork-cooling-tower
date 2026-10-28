@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "datenschutz.html",
+  "entry": "datenschutz.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-10-03T10:28:14.440Z",
+  "updatedAt": "2026-10-03T10:28:14.440Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

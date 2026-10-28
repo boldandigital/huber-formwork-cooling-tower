@@ -23,3 +23,13 @@ coverage/
 
 # Logs
 *.log
+
+# Open Design runtime internals - design output IS synced, OD scratch is NOT
+opendesign/**/.file-versions/
+opendesign/**/.swarm/
+opendesign/**/.playwright-mcp/
+opendesign/**/.od-frames/
+opendesign/**/.od-skills/
+opendesign/**/.agents/
+opendesign/**/.mcp.json
+opendesign/**/*hermes-bak*

@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "impressum.html",
+  "entry": "impressum.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-10-03T10:26:04.416Z",
+  "updatedAt": "2026-10-03T10:26:04.416Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}
